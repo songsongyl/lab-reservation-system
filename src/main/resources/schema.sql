@@ -2,11 +2,12 @@ create table if not exists `user`
 (
     id char(26) primary key ,
     account varchar(10) not null unique ,
-    password varchar(20) not null ,
+    password varchar(70) not null ,
     telephone char(11) not null ,
+    name varchar(20) not null ,
     role char(3) not null,/**乱码长度为三*/
     create_time datetime not null default current_timestamp,
-    update_time datetime not null default current_timestamp
+    update_time datetime not null default current_timestamp on update current_timestamp
 );
 
 create table if not exists `course`
@@ -30,7 +31,7 @@ create table if not exists `course`
 
 create table if not exists `timetable` (
        id char(26) primary key,
-       teacher json  not null comment '{id, name,major}',
+       teacher json  not null comment '{id, name}',
        lab_id char(26) not null ,
        nature char(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
        week tinyint unsigned not null,/**非负小整数*/
@@ -38,8 +39,6 @@ create table if not exists `timetable` (
        lesson tinyint unsigned/**非负int*/,
        unique(lab_id,week,dayofweek,lesson),
        index ((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin))
-
-# 备用方案
 
 );
 
