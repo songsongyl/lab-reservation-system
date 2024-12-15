@@ -3,7 +3,6 @@ create table if not exists `user`
     id char(26) primary key ,
     account char(10) not null unique ,
     password varchar(60) not null ,
-    telephone char(11) not null ,
     name varchar(6) not null , /**字符 一个中文三个字节 一个字符*/
     role char(4) not null,/**乱码长度为四个 可以用$*/
     create_time datetime  null default current_timestamp,

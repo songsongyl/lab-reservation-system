@@ -49,7 +49,6 @@ create table if not exists `user`
     id char(26) primary key ,
     account char(10) not null unique ,
     password varchar(60) not null ,
-    telephone char(11) not null ,
     name varchar(6) not null , /**字符 一个中文三个字节 一个字符*/
     role char(4) not null,/**乱码长度为四个 可以用$*/
     create_time datetime  null default current_timestamp,
@@ -78,13 +77,13 @@ create table if not exists `appointment` (
        teacher json  not null comment '{id, name}',
        course json not null  comment '{id,name}',
        lab json not null  comment '{id,name}',
-       nature char(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
+       nature varchar(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
        week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
        dayofweek tinyint unsigned not null ,/**周几 */
        section tinyint unsigned not null, /**节次*/
 
        unique((cast(lab ->> '$.id' as char(26) )collate utf8mb4_bin),week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位*/
-            index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
+       index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
 
 );
 
@@ -93,7 +92,7 @@ create table if not exists `lab` (
      name varchar(10) not null ,
      state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
      quantity tinyint unsigned  null ,
-     introduction text  null,
+     description text  null,
      manager json null  comment '{id, name}',
 
      index(state,quantity)
@@ -112,24 +111,77 @@ create table if not exists `news` (
 
 
 
+
 ~~~
 
 插入测试数据 以防丢失记录 在test下新建explain.sql文件存储 表测试数据应该>6条
 ~~~
-explain
-INSERT INTO `user` (id, account, password, telephone, role, create_time, update_time)
-VALUES
-    ('NzqqfNEu3ET07lulQ5dGuHzpnh', 'user001', 'password123', '13800000001', '001', '2024-12-12 10:00:00', '2024-12-12 10:00:00'),
-    ('LAoe4Ica3aEkzwRXYgiZXqQLqs', 'user002', 'password456', '13800000002', '002', '2024-12-12 11:00:00', '2024-12-12 11:00:00'),
-    ('kTV2fG9hbeZGUciQyRldCsStKp', 'user003', 'password789', '13800000003', '003', '2024-12-12 12:00:00', '2024-12-12 12:00:00'),
-    ('XDFBEp0Xp0TdUSLxt6ZEcmCZpK', 'user004', 'password000', '13800000004', '001', '2024-12-12 13:00:00', '2024-12-12 13:00:00'),
-    ('tyUhAq3iFbxqk1C8uJZcBDdHsq', 'user005', 'password111', '13800000005', '002', '2024-12-12 14:00:00', '2024-12-12 14:00:00'),
-    ('eaXSt5KjgeOvug41SJJWGJNamt', 'user006', 'password222', '13800000006', '003', '2024-12-12 15:00:00', '2024-12-12 15:00:00'),
-    ('eDIv4sk7duduj7qxkM9sFb2jLH', 'user007', 'password333', '13800000007', '001', '2024-12-12 16:00:00', '2024-12-12 16:00:00'),
-    ('maGPIj4W3rUtLDn79xh6h57O4X', 'user008', 'password444', '13800000008', '002', '2024-12-12 17:00:00', '2024-12-12 17:00:00'),
-    ('iqV7Y3CzUY6s4iwx3j3If56d0b', 'user009', 'password555', '13800000009', '003', '2024-12-12 18:00:00', '2024-12-12 18:00:00'),
-    ('Cw9H2rPXKeQTfa8WVnEhwsJZOd', 'user010', 'password666', '13800000010', '001', '2024-12-12 19:00:00', '2024-12-12 19:00:00');
 
+INSERT INTO `lab` (id, name, state, quantity, description, manager)
+VALUES
+    ('1', '901', 1, 55, 'Physics research lab', '{"id": "mngr001", "name": "John Doe"}'),
+    ('2', '902', 0, 62, 'Chemistry research lab', '{"id": "mngr002", "name": "Jane Smith"}'),
+    ('3', '903', 1, 70, 'Biology research lab', '{"id": "mngr003", "name": "Alice Johnson"}'),
+    ('4', '904', 1, 43, 'Computer science lab', '{"id": "mngr004", "name": "Bob Lee"}'),
+    ('5', '905', 0, 50, 'Mathematics lab', '{"id": "mngr005", "name": "Cathy Green"}'),
+    ('6', '906', 1, 45, 'Engineering research lab', '{"id": "mngr006", "name": "David Brown"}');
+
+INSERT INTO `user` (id, name, account, password, role, create_time, update_time) VALUES
+     ('1', '张三', 'account01', 'pass123456', '用户', '2024-12-15 12:00:00', '2024-12-15 12:00:00'),
+     ('2', '李四', 'account02', 'abc1234567', '管理员', '2024-12-14 09:30:00', '2024-12-15 08:45:00'),
+     ('3', '王五', 'account03', 'pass567890', '用户', '2024-12-13 18:00:00', '2024-12-14 07:50:00'),
+     ('4', '赵六', 'account04', 'password01', '游客', '2024-12-12 10:20:00', '2024-12-13 15:40:00'),
+     ('5', '钱七', 'account05', 'qwerty1234', '用户', '2024-12-11 08:15:00', '2024-12-11 08:15:00'),
+     ('6', '孙八', 'account06', 'zxcvbn0987', '管理员', '2024-12-10 13:45:00', '2024-12-15 14:20:00');
+
+INSERT INTO `course` (id, name, quantity,  semester, major, grade, class, type, teacher_id, credit_hour, experiment_hour) VALUES
+('1', '高等数学', 120, '2024-2025秋季', '数学与应用数学', 2024, 1, 0, '1', 64, 16),
+('2', '大学物理', 90, '2024-2025春季', '物理学', 2023, 2, 0, '1', 48, 12),
+('3', '编程基础', 75, '2024-2025秋季', '计算机科学与技术', 2024, 1, 1, '2', 56, 20),
+('4', '工程制图', 60, '2024-2025春季', '机械工程', 2022, 3, 0, '3', 40, 8),
+('5', '基础化学', 80, '2024-2025秋季', '化学工程与工艺', 2023, 2, 1, '4', 52, 10),
+('6', '英语听力', 100, '2024-2025春季', '英语', 2024, 1, 1, '4', 60, 0);
+
+INSERT INTO `appointment` (id, teacher, course, lab, nature, week, dayofweek, section) VALUES
+   ('1',
+    JSON_OBJECT('1', '张三'),
+    JSON_OBJECT('1', '高等数学'),
+    JSON_OBJECT('1','901'),
+    '课程预约', 2, 3, 1),
+   ('2',
+    JSON_OBJECT('1', '张三'),
+    JSON_OBJECT('2', '大学物理'),
+    JSON_OBJECT('2', '902'),
+    '临时预约', 4, 5, 2),
+   ('3',
+    JSON_OBJECT('2', '李四'),
+    JSON_OBJECT('3', '编程基础'),
+    JSON_OBJECT('3', '903'),
+    '课程预约', 6, 1, 3),
+   ('4',
+    JSON_OBJECT('3', '王五'),
+    JSON_OBJECT('4', '工程制图'),
+    JSON_OBJECT('4', '904'),
+    '课程预约', 8, 4, 2),
+   ('5',
+    JSON_OBJECT('4', '赵六'),
+    JSON_OBJECT('5', '基础化学'),
+    JSON_OBJECT('5', '905'),
+    '课程预约', 10, 2, 1),
+   ('6',
+    JSON_OBJECT('4', '赵六'),
+    JSON_OBJECT('6', '英语听力'),
+    JSON_OBJECT('6', '906'),
+    '临时预约', 12, 6, 4);
+
+INSERT INTO `lab` (id, name, state, quantity, description, manager)
+VALUES
+    ('1', '901', 1, 55, 'Physics research lab', '{"id": "mngr001", "name": "John Doe"}'),
+    ('2', '902', 0, 62, 'Chemistry research lab', '{"id": "mngr002", "name": "Jane Smith"}'),
+    ('3', '903', 1, 70, 'Biology research lab', '{"id": "mngr003", "name": "Alice Johnson"}'),
+    ('4', '904', 1, 43, 'Computer science lab', '{"id": "mngr004", "name": "Bob Lee"}'),
+    ('5', '905', 0, 50, 'Mathematics lab', '{"id": "mngr005", "name": "Cathy Green"}'),
+    ('6', '906', 1, 45, 'Engineering research lab', '{"id": "mngr006", "name": "David Brown"}');
 
 ~~~
 
@@ -137,8 +189,8 @@ VALUES
 查询逻辑测试效率
 ~~~
 explain
-select * from user u
-where u.id = '1';
+select * from course c
+where c.teacher_id = '1';
 
 # 查询第一周周一第一节可用实验室 a.week=1 and a.dayofweek = 1 and a.section = 1不能放在where里面 where会过滤掉a表记录为空的数据 变成innerjoin
 explain
@@ -148,12 +200,12 @@ and a.week=1 and a.dayofweek = 1 and a.section = 1 where a.lab ->> '$.id' is nul
 # 查询指定课程的预约记录
 explain
 select * from appointment a
-where  a.course ->> '$.id' = 1;
+where  a.course ->> '$.id' = '1';
 
 # 查询指定课程的预约记录
 explain
 select * from appointment a
-where a.teacher ->> '$.id' = 1;
+where a.teacher ->> '$.id' = '1';
 
 ~~~
 
