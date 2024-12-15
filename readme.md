@@ -114,7 +114,7 @@ create table if not exists `news` (
 
 ~~~
 
-插入测试数据 以防丢失记录 在test下新建explain.sql文件存储
+插入测试数据 以防丢失记录 在test下新建explain.sql文件存储 表测试数据应该>6条
 ~~~
 explain
 INSERT INTO `user` (id, account, password, telephone, role, create_time, update_time)

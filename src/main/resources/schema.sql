@@ -30,27 +30,27 @@ create table if not exists `course`
 create table if not exists `appointment` (
        id char(26) primary key,
        teacher json  not null comment '{id, name}',
-       course_id char(26) not null ,
-       lab_id char(26) not null ,
+       course json not null  comment '{id,name}',
+       lab json not null  comment '{id,name}',
        nature char(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
        week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
        dayofweek tinyint unsigned not null ,/**周几 */
        section tinyint unsigned not null, /**节次*/
 
-       unique(lab_id,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位*/
-       index(course_id,(cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin))
+       unique((cast(lab ->> '$.id' as char(26) )collate utf8mb4_bin),week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位*/
+       index((cast(course ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin))
 
 );
 
 create table if not exists `lab` (
      id char(26) primary key ,
      name varchar(10) not null ,
-     state tinyint unsigned check ( 0 or 1),/**被维修还是可用*/
-     seat_number tinyint unsigned  null ,
+     state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
+     quantity tinyint unsigned  null ,
      introduction text  null,
      manager json null  comment '{id, name}',
 
-     index(state,seat_number)
+     index(state,quantity)
 );
 
 create table if not exists `news` (
@@ -60,7 +60,7 @@ create table if not exists `news` (
       author varchar(50) not null ,
       create_time datetime not null default current_timestamp,
       update_time datetime not null default current_timestamp on update current_timestamp,
-    
+
       index(title)
 );
 
