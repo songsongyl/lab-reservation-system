@@ -32,13 +32,13 @@ create table if not exists `appointment` (
        teacher json  not null comment '{id, name}',
        course json not null  comment '{id,name}',
        lab json not null  comment '{id,name}',
-       nature char(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
+       nature varchar(30) not null ,/** 性质，约定为课程，临时预约等。到时候前端就用那个输入多选框约束*/
        week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
        dayofweek tinyint unsigned not null ,/**周几 */
        section tinyint unsigned not null, /**节次*/
 
        unique((cast(lab ->> '$.id' as char(26) )collate utf8mb4_bin),week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位*/
-       index((cast(course ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin))
+       index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
 
 );
 
@@ -47,7 +47,7 @@ create table if not exists `lab` (
      name varchar(10) not null ,
      state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
      quantity tinyint unsigned  null ,
-     introduction text  null,
+     description text  null,
      manager json null  comment '{id, name}',
 
      index(state,quantity)
