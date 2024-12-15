@@ -137,7 +137,7 @@ create table if not exists `course`
     teacher_id char(26) not null,
     experiment_hour tinyint unsigned not null,/**实验学时,到时候可以校验一下（当老师选的学时还有剩余时）*/
     semester char(4) not null ,/**学期，用下拉框，让老师们选 24-1 默认*/
-    quantity int unsigned not null ,/*学生人数*/
+    quantity tinyint unsigned not null ,/*学生人数*/
 
     index(teacher_id,semester)
 );
@@ -153,7 +153,7 @@ create table if not exists `appointment` (
        dayofweek tinyint unsigned not null ,/**周几 */
        section tinyint unsigned not null, /**节次*/
 
-       unique((cast(lab ->> '$.id' as char(26) )collate utf8mb4_bin),semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位*/
+       unique((cast(lab ->> '$.id' as char(26) ) collate utf8mb4_bin),semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
        index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
 
 );
@@ -178,6 +178,8 @@ create table if not exists `news` (
       update_time datetime not null default current_timestamp on update current_timestamp
 
 );
+
+
 
 
 ~~~

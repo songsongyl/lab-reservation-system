@@ -2,11 +2,15 @@ explain
 select * from course c
 where c.teacher_id = '1';
 
-# 查询第一周周一第一节可用实验室 a.week=1 and a.dayofweek = 1 and a.section = 1不能放在where里面 where会过滤掉a表记录为空的数据 变成innerjoin
+# 查询学期24-1第一周周一第一节可用实验室 a.week=1 and a.dayofweek = 1 and a.section = 1不能放在where里面 where会过滤掉a表记录为空的数据 变成innerjoin
 explain
 select * from  lab l left join appointment a on l.id = a.lab ->> '$.id'
-and a.week=1 and a.dayofweek = 1 and a.section = 1 where a.lab ->> '$.id' is null and l.state = 1;
+and a.week=1 and a.dayofweek = 1 and a.section = 1 and a.semester = '24-1' where a.lab ->> '$.id' is null and l.state = 1;
 
+
+explain
+select * from  lab l left join appointment1 a on l.id = a.lab_id
+    and a.week=1 and a.dayofweek = 1 and a.section = 1 and a.semester = '24-1' where a.lab_id is null and l.state = 1;
 # 查询指定课程的预约记录
 explain
 select * from appointment a
@@ -46,45 +50,45 @@ INSERT INTO `user` (id, name, account, password, role, create_time, update_time)
      ('5', '钱七', 'account05', 'qwerty1234', '用户', '2024-12-11 08:15:00', '2024-12-11 08:15:00'),
      ('6', '孙八', 'account06', 'zxcvbn0987', '管理员', '2024-12-10 13:45:00', '2024-12-15 14:20:00');
 
-INSERT INTO `course` (id, name, quantity,  semester, major, grade, class, type, teacher_id, credit_hour, experiment_hour) VALUES
-('1', '高等数学', 120, '2024-2025秋季', '数学与应用数学', 2024, 1, 0, '1', 64, 16),
-('2', '大学物理', 90, '2024-2025春季', '物理学', 2023, 2, 0, '1', 48, 12),
-('3', '编程基础', 75, '2024-2025秋季', '计算机科学与技术', 2024, 1, 1, '2', 56, 20),
-('4', '工程制图', 60, '2024-2025春季', '机械工程', 2022, 3, 0, '3', 40, 8),
-('5', '基础化学', 80, '2024-2025秋季', '化学工程与工艺', 2023, 2, 1, '4', 52, 10),
-('6', '英语听力', 100, '2024-2025春季', '英语', 2024, 1, 1, '4', 60, 0);
+INSERT INTO `course` (id, name, quantity,  semester, clazz, type, teacher_id, experiment_hour) VALUES
+('1', '高等数学', 120, '24-1', '22-数学与应用数学-1', 1, 1, 8),
+('2', '大学物理', 90, '24-1', '22物理学-1', 1, 2, 6),
+('3', '编程基础', 75, '24-2', '22计算机科学与技术-2', 0, 1, 8),
+('4', '工程制图', 60, '24-1', '22机械工程-3', 0, 3, 8),
+('5', '基础化学', 80, '23-1', '23-化学工程与工艺-1', 1, 2, 16),
+('6', '英语听力', 100, '24-2', '23-英语-1', 1, 1, 8);
 
-INSERT INTO `appointment` (id, teacher, course, lab, nature, week, dayofweek, section) VALUES
+INSERT INTO `appointment` (id, teacher, course, lab, nature, week, dayofweek, section,semester) VALUES
    ('1',
     JSON_OBJECT('1', '张三'),
     JSON_OBJECT('1', '高等数学'),
     JSON_OBJECT('1','901'),
-    '课程预约', 2, 3, 1),
+    '课程预约', 2, 3, 1,24-1),
    ('2',
     JSON_OBJECT('1', '张三'),
     JSON_OBJECT('2', '大学物理'),
     JSON_OBJECT('2', '902'),
-    '临时预约', 4, 5, 2),
+    '临时预约', 4, 5, 2,24-2),
    ('3',
     JSON_OBJECT('2', '李四'),
     JSON_OBJECT('3', '编程基础'),
     JSON_OBJECT('3', '903'),
-    '课程预约', 6, 1, 3),
+    '课程预约', 6, 1, 3,24-1),
    ('4',
     JSON_OBJECT('3', '王五'),
     JSON_OBJECT('4', '工程制图'),
     JSON_OBJECT('4', '904'),
-    '课程预约', 8, 4, 2),
+    '课程预约', 8, 4, 2,23-1),
    ('5',
     JSON_OBJECT('4', '赵六'),
     JSON_OBJECT('5', '基础化学'),
     JSON_OBJECT('5', '905'),
-    '课程预约', 10, 2, 1),
+    '课程预约', 10, 2, 1,23-2),
    ('6',
     JSON_OBJECT('4', '赵六'),
     JSON_OBJECT('6', '英语听力'),
     JSON_OBJECT('6', '906'),
-    '临时预约', 12, 6, 4);
+    '临时预约', 12, 6, 4,24-2);
 
 INSERT INTO `lab` (id, name, state, quantity, description, manager)
 VALUES
