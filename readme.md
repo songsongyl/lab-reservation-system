@@ -113,9 +113,91 @@ create table if not exists `news` (
 
 
 ~~~
-json 用on关联不能命中索引 改表的结构
+json 用on关联不能命中索引 改表的结构 以冗余字段存在 多插入几条数据就能命中索引
 最终版
 ~~~
+
+create table if not exists `user`
+(
+    id char(26) primary key ,
+    account char(10) not null unique ,
+    password varchar(60) not null ,
+    telephone char(11) not null ,
+    name varchar(6) not null , /**字符 一个中文三个字节 一个字符*/
+    role char(4) not null,/**乱码长度为四个 可以用$*/
+    create_time datetime  null default current_timestamp,
+    update_time datetime  null default current_timestamp on update current_timestamp
+);
+
+create table if not exists `course`
+(
+    id char(26) primary key ,
+    name varchar(20) not null ,
+   clazz varchar(30) not null /*上课年级专业班级*/,
+    type tinyint unsigned check ( 0 or 1),/**必修课，选修课*/
+    teacher_id char(26) not null,
+    experiment_hour tinyint unsigned not null,/**实验学时,到时候可以校验一下（当老师选的学时还有剩余时）*/
+    semester char(4) not null ,/**学期，用下拉框，让老师们选 24-1 默认*/
+    quantity tinyint unsigned not null ,/*学生人数*/
+
+    index(teacher_id,semester)
+);
+
+create table if not exists `appointment` (
+       id char(26) primary key,
+       teacher json  not null comment '{id, name}',
+       course json not null  comment '{id,name}',
+        semester char(4) not null ,/*学期*/
+#        lab json not null  comment '{id,name}',
+        lab_id char(26) not null ,
+        lab_name varchar(10) not null ,
+       nature varchar(4) not null ,/** 性质，约定为课程，临时预约等。到时候前端就选择而不是输入 统一用其他表示*/
+       week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
+       dayofweek tinyint unsigned not null ,/**周几 */
+       section tinyint unsigned not null, /**节次*/
+
+       unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
+       index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
+
+
+);
+
+create table if not exists `appointment1` (
+     id char(26) primary key,
+     teacher json  not null comment '{id, name}',
+     course json not null  comment '{id,name}',
+     semester char(4) not null ,/*学期*/
+     lab_id char(26) not null ,
+     nature varchar(4) not null ,/** 性质，约定为课程，临时预约等。到时候前端就选择而不是输入 统一用其他表示*/
+     week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
+     dayofweek tinyint unsigned not null ,/**周几 */
+     section tinyint unsigned not null, /**节次*/
+
+     unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
+     index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
+
+);
+
+create table if not exists `lab` (
+     id char(26) primary key ,
+     name varchar(10) not null ,
+     state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
+     quantity tinyint unsigned  null ,
+     description varchar(500)  null,
+     manager json null  comment '{id, name}',
+
+     index(state)
+);
+
+create table if not exists `news` (
+      id char(26) primary key ,
+      title varchar(50) not null ,
+      content varchar(2000) not null ,
+      author varchar(50) not null ,
+      create_time datetime not null default current_timestamp,
+      update_time datetime not null default current_timestamp on update current_timestamp
+
+);
 
 
 
@@ -143,45 +225,39 @@ INSERT INTO `user` (id, name, account, password, role, create_time, update_time)
      ('5', '钱七', 'account05', 'qwerty1234', '用户', '2024-12-11 08:15:00', '2024-12-11 08:15:00'),
      ('6', '孙八', 'account06', 'zxcvbn0987', '管理员', '2024-12-10 13:45:00', '2024-12-15 14:20:00');
 
-INSERT INTO `course` (id, name, quantity,  semester, major, grade, class, type, teacher_id, credit_hour, experiment_hour) VALUES
-('1', '高等数学', 120, '2024-2025秋季', '数学与应用数学', 2024, 1, 0, '1', 64, 16),
-('2', '大学物理', 90, '2024-2025春季', '物理学', 2023, 2, 0, '1', 48, 12),
-('3', '编程基础', 75, '2024-2025秋季', '计算机科学与技术', 2024, 1, 1, '2', 56, 20),
-('4', '工程制图', 60, '2024-2025春季', '机械工程', 2022, 3, 0, '3', 40, 8),
-('5', '基础化学', 80, '2024-2025秋季', '化学工程与工艺', 2023, 2, 1, '4', 52, 10),
-('6', '英语听力', 100, '2024-2025春季', '英语', 2024, 1, 1, '4', 60, 0);
+INSERT INTO `course` (id, name, quantity,  semester, clazz, type, teacher_id, experiment_hour) VALUES
+('1', '高等数学', 120, '24-1', '22-数学与应用数学-1', 1, 1, 8),
+('2', '大学物理', 90, '24-1', '22物理学-1', 1, 2, 6),
+('3', '编程基础', 75, '24-2', '22计算机科学与技术-2', 0, 1, 8),
+('4', '工程制图', 60, '24-1', '22机械工程-3', 0, 3, 8),
+('5', '基础化学', 80, '23-1', '23-化学工程与工艺-1', 1, 2, 16),
+('6', '英语听力', 100, '24-2', '23-英语-1', 1, 1, 8);
 
-INSERT INTO `appointment` (id, teacher, course, lab, nature, week, dayofweek, section) VALUES
+INSERT INTO `appointment` (id, teacher, course, lab_id,lab_name, nature, week, dayofweek, section,semester) VALUES
    ('1',
     JSON_OBJECT('1', '张三'),
     JSON_OBJECT('1', '高等数学'),
-    JSON_OBJECT('1','901'),
-    '课程预约', 2, 3, 1),
+    1,'901', 2, 3, 1,1,'24-1'),
    ('2',
     JSON_OBJECT('1', '张三'),
     JSON_OBJECT('2', '大学物理'),
-    JSON_OBJECT('2', '902'),
-    '临时预约', 4, 5, 2),
+    2,'902', 4, 5, 2,1,'24-2'),
    ('3',
     JSON_OBJECT('2', '李四'),
     JSON_OBJECT('3', '编程基础'),
-    JSON_OBJECT('3', '903'),
-    '课程预约', 6, 1, 3),
+    3,'903', 6, 1, 3,1,'24-1'),
    ('4',
     JSON_OBJECT('3', '王五'),
     JSON_OBJECT('4', '工程制图'),
-    JSON_OBJECT('4', '904'),
-    '课程预约', 8, 4, 2),
+    1,901,8, 4, 2,2,'23-1'),
    ('5',
     JSON_OBJECT('4', '赵六'),
     JSON_OBJECT('5', '基础化学'),
-    JSON_OBJECT('5', '905'),
-    '课程预约', 10, 2, 1),
+    2,'902', 10, 2, 1,3,'23-2'),
    ('6',
     JSON_OBJECT('4', '赵六'),
     JSON_OBJECT('6', '英语听力'),
-    JSON_OBJECT('6', '906'),
-    '临时预约', 12, 6, 4);
+    4,'904',12, 6, 4,4,'24-2');
 
 INSERT INTO `lab` (id, name, state, quantity, description, manager)
 VALUES

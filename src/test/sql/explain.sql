@@ -5,12 +5,9 @@ where c.teacher_id = '1';
 # 查询学期24-1第一周周一第一节可用实验室 a.week=1 and a.dayofweek = 1 and a.section = 1不能放在where里面 where会过滤掉a表记录为空的数据 变成innerjoin
 explain
 select * from  lab l left join appointment a on l.id = a.lab_id
-and a.semester = '24-1' and a.week=1 and a.dayofweek = 1 and a.section = 1  where a.lab_id is null and l.state = 1;
+and a.semester = '2026' and a.week=1 and a.dayofweek = 1 and a.section = 1  where a.lab_id is null and l.state = 1;
 
 
-explain
-select * from  lab l left join appointment1 a on l.id = a.lab_id
-    and a.week=1 and a.dayofweek = 1 and a.section = 1 and a.semester = '24-1' where a.lab_id is null and l.state = 1;
 # 查询指定课程的预约记录
 explain
 select * from appointment a

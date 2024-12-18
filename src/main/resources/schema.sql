@@ -38,8 +38,8 @@ create table if not exists `appointment` (
        section tinyint unsigned not null, /**节次*/
 
        unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
-       index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin)),
-       index(lab_id)
+       index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
+
 
 );
 
