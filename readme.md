@@ -21,6 +21,7 @@ The system should prevent double-booking and allow admins to review all reservat
 
 **注册与登录**  
 
+- 默认admin登录 验证码
 **首页**  
 
 - logo 头像 欢迎回来 悬浮之后显示 退出 个人信息管理 侧边栏 课程管理 Routerview 路由跳转  
@@ -41,6 +42,11 @@ The system should prevent double-booking and allow admins to review all reservat
 - 系统管理：设备管理
 - 统计
 
+- 业务逻辑划分：
+- 管理员无需添加课程 也不用预约
+- 教师无需添加用户，实验室
+- 操作与角色权限密不可分 所以按照角色划分   
+userService teacherService adminService
 
 
 ## Scheme Design
