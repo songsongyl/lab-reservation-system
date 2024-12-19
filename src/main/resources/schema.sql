@@ -39,7 +39,7 @@ create table if not exists `appointment` (
 
        unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
        index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
-
+        /*引入水平越权之后 只能查询老师的全部预约 或者老师某门课程的预约 所以复合索引*/
 
 );
 
@@ -48,13 +48,13 @@ create table if not exists `appointment1` (
      teacher json  not null comment '{id, name}',
      course json not null  comment '{id,name}',
      semester char(4) not null ,/*学期*/
-     lab_id char(26) not null ,
+     lab json comment '{id,name}' not null ,
      nature varchar(4) not null ,/** 性质，约定为课程，临时预约等。到时候前端就选择而不是输入 统一用其他表示*/
      week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
      dayofweek tinyint unsigned not null ,/**周几 */
      section tinyint unsigned not null, /**节次*/
 
-     unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
+     unique((cast(lab ->> '$.id' as char(26)) collate utf8mb4_bin),semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
      index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
 
 );

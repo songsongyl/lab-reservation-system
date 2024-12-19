@@ -36,9 +36,11 @@ The system should prevent double-booking and allow admins to review all reservat
   
 
 - 临时预约：考试
-- 当前预约： 选择课程 渲染table 右侧垃圾桶（不需要更改 应该删掉重新预约）  
+- 当前预约： 选择课程 渲染table 右侧垃圾桶（不需要更改 应该删掉重新预约）    
+-  数据库操作校验  水平越权(老师删除课程 要从token拿出teacher_id 结合course_id 才能防止水平越权 但是每个语句都要写 所以要写通用代码 如果不一致 证明经过篡改 所以抛出异常)  
 - 系统管理：设备管理
 - 统计
+
 
 
 ## Scheme Design
@@ -119,7 +121,6 @@ create table if not exists `news` (
 
 最终版  
 ~~~
-
 create table if not exists `user`
 (
     id char(26) primary key ,
@@ -170,15 +171,15 @@ create table if not exists `appointment1` (
      teacher json  not null comment '{id, name}',
      course json not null  comment '{id,name}',
      semester char(4) not null ,/*学期*/
-     lab_id char(26) not null ,
+     lab json comment '{id,name}' not null ,
      nature varchar(4) not null ,/** 性质，约定为课程，临时预约等。到时候前端就选择而不是输入 统一用其他表示*/
      week tinyint unsigned not null,/**周次 考虑查询效率 所以不用数组[1,3,5] 空间换时间*/
      dayofweek tinyint unsigned not null ,/**周几 */
      section tinyint unsigned not null, /**节次*/
 
-     unique(lab_id,semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
+     unique((cast(lab ->> '$.id' as char(26)) collate utf8mb4_bin),semester,week,dayofweek,section),/*实验室id要带索引 唯一索引已经包括 移到第一位  无法命中索引 单独lab_id可以*/
      index((cast(teacher ->> '$.id' as char(26)) collate utf8mb4_bin),(cast(course ->> '$.id' as char(26)) collate utf8mb4_bin))
-
+  /*引入水平越权之后 只能查询老师的全部预约 或者老师某门课程的预约 所以复合索引*/
 );
 
 create table if not exists `lab` (
