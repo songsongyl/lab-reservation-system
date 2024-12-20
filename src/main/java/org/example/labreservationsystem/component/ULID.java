@@ -1,5 +1,8 @@
 package org.example.labreservationsystem.component;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jdbc.repository.config.EnableJdbcAuditing;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -8,9 +11,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
+@EnableJdbcAuditing
 @Component
 public class ULID
 {
+    @Bean
+    AuditorAware<String> auditorAware() {
+        return () -> Optional.of(String.valueOf(nextULID()));
+    }
     private static final char[] ENCODING_CHARS = {
             '0','1','2','3','4','5','6','7','8','9',
             'A','B','C','D','E','F','G','H','J','K',

@@ -48,6 +48,10 @@ The system should prevent double-booking and allow admins to review all reservat
 - 操作与角色权限密不可分 所以按照角色划分 不是划分业务的唯一方式 仅是适合此项目的一种方法
 userService teacherService adminService
 
+## learning
+- 密码经过编码之后才存进数据库
+- ulid的生成id的方法不能之间写在save里面 因为insert语句不能直接写函数
+- 
 
 ## Scheme Design
 
@@ -135,8 +139,8 @@ create table if not exists `user`
     telephone char(11) not null ,
     name varchar(6) not null , /**字符 一个中文三个字节 一个字符*/
     role char(4) not null,/**乱码长度为四个 可以用$*/
-    create_time datetime  null default current_timestamp,
-    update_time datetime  null default current_timestamp on update current_timestamp
+    create_time datetime  default current_timestamp,
+    update_time datetime  default current_timestamp on update current_timestamp
 );
 
 create table if not exists `course`

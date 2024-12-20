@@ -21,7 +21,7 @@ public class User {
   public static final String USER = "wewe";
   public static final String ADMIN = "sqWf";
     @Id
-//    @CreatedBy
+    @CreatedBy
   private String id;
   private String account;
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
