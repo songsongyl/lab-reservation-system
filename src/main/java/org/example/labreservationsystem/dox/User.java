@@ -1,5 +1,6 @@
 package org.example.labreservationsystem.dox;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +18,13 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class User {
+  public static final String USER = "wewe";
+  public static final String ADMIN = "sqWf";
     @Id
 //    @CreatedBy
   private String id;
   private String account;
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
   private String telephone;
   private String name;

@@ -29,7 +29,6 @@ create table if not exists `appointment` (
        teacher json  not null comment '{id, name}',
        course json not null  comment '{id,name}',
         semester char(4) not null ,/*学期*/
-#        lab json not null  comment '{id,name}',
         lab_id char(26) not null ,
         lab_name varchar(10) not null ,
        nature varchar(4) not null ,/** 性质，约定为课程，临时预约等。到时候前端就选择而不是输入 统一用其他表示*/
