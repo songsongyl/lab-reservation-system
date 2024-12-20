@@ -27,7 +27,7 @@ create table if not exists `course`
 create table if not exists `appointment` (
        id char(26) primary key,
        teacher json  not null comment '{id, name}',
-       course json not null  comment '{id,name}',
+       course json not null  comment '{id,name,clazz}',
         semester char(4) not null ,/*学期*/
 #        lab json not null  comment '{id,name}',
         lab_id char(26) not null ,

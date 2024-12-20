@@ -45,7 +45,7 @@ The system should prevent double-booking and allow admins to review all reservat
 - 业务逻辑划分：
 - 管理员无需添加课程 也不用预约
 - 教师无需添加用户，实验室
-- 操作与角色权限密不可分 所以按照角色划分   
+- 操作与角色权限密不可分 所以按照角色划分 不是划分业务的唯一方式 仅是适合此项目的一种方法
 userService teacherService adminService
 
 
