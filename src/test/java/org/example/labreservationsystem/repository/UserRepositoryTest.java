@@ -24,7 +24,7 @@ private PasswordEncoder passwordEncoder;
 private ULID ulid;
 @Test
 public void saveUser() {
-    String account = "2022222998";
+    String account = "admin";
     User user = User.builder()
 
             .name("syl")

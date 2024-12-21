@@ -50,8 +50,15 @@ userService teacherService adminService
 
 ## learning
 - 密码经过编码之后才存进数据库
-- ulid的生成id的方法不能之间写在save里面 因为insert语句不能直接写函数
-- 
+- ulid的生成id的方法不能之间写在save里面 因为insert语句不能直接写函数 
+~~~
+ @Bean
+    AuditorAware<String> auditorAware() {
+        return () -> Optional.of(String.valueOf(nextULID()));
+    }
+~~~
+- repository 发现不用写@repository也可以实现功能 默认springboot会识别
+- 在control中添加@CrossOrigin实现跨域请求 前端axios 实现前后端互联
 
 ## Scheme Design
 
