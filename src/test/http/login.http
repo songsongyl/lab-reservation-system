@@ -5,3 +5,11 @@ Content-Type: application/json
   "account": "2022222998",
   "password": "2022222998"
 }
+###
+POST localhost:8080/api/login
+Content-Type: application/json
+
+{
+"account": "admin",
+"password": "admin"
+}

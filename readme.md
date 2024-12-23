@@ -203,10 +203,11 @@ create table if not exists `lab` (
      id char(26) primary key ,
      name varchar(10) not null ,
      state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
-     quantity tinyint unsigned  null ,
+     quantity tinyint unsigned  null ,/*设备总数*/
      description varchar(500)  null,
      manager json null  comment '{id, name}',
-
+#      equipment json comment '{quantity,[{nature}]}',
+    enable_equipment tinyint unsigned null ,/*可用设备数量*/
      index(state)
 );
 
