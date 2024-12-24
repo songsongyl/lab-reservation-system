@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.labreservationsystem.dox.User;
 import org.example.labreservationsystem.exception.Code;
 import org.example.labreservationsystem.service.UserService;
-import org.example.labreservationsystem.vo.ResultVo;
+import org.example.labreservationsystem.vo.ResultVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.example.labreservationsystem.component.JWTComponent;
@@ -22,7 +22,7 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
    private final JWTComponent jwtComponent;
     @PostMapping("login")
-    public ResultVo login(@RequestBody User user, HttpServletResponse response) {
+    public ResultVO login(@RequestBody User user, HttpServletResponse response) {
 //        log.debug(user.toString());
 //        return "接收到";
 
@@ -30,12 +30,12 @@ public class LoginController {
         log.debug("{}",userR);
         if(userR == null || !passwordEncoder.matches(user.getPassword(), userR.getPassword())) {
             log.debug("{}",userR);
-            return ResultVo.error(Code.LOGIN_ERROR);
+            return ResultVO.error(Code.LOGIN_ERROR);
         }
         String token = jwtComponent.encode(Map.of("uid", userR.getId(),"role",userR.getRole()));
         response.setHeader("token", token);
         //request 没有这个方法
         response.setHeader("role", user.getRole());
-        return ResultVo.success(userR);
+        return ResultVO.success(userR);
     }
 }
