@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @CrossOrigin
-@RequestMapping("/admin")
+@RequestMapping("/api/admin/")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
@@ -23,7 +23,11 @@ public class AdminController {
     @GetMapping("getData")
     public ResultVO accountLabByState() {
         List<LabCountDTO> labCountDTOList = adminService.countLabByState();
-        log.info(labCountDTOList.toString());
+        if (labCountDTOList == null || labCountDTOList.isEmpty()) {
+            log.debug("No lab count data available.");
+        } else {
+            log.debug(labCountDTOList.toString());
+        }
         return ResultVO.success(labCountDTOList);
     }
 }
