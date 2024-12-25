@@ -61,7 +61,7 @@ create table if not exists `appointment1` (
 create table if not exists `lab` (
      id char(26) primary key ,
      name varchar(10) not null ,
-     state tinyint unsigned check ( 0 or 1) default 1,/**被维修还是可用*/
+     state tinyint unsigned check ( 0 or 1 or 2) default 1,/**被维修还是可用还是空闲*/
      quantity tinyint unsigned  null ,/*设备总数*/
      description varchar(500)  null,
      manager json null  comment '{id, name}',

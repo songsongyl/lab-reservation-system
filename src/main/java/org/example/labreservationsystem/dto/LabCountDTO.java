@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LabCountDTO {
     private short state;
-    private short quantity;
+    private short account;
 }

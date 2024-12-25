@@ -18,9 +18,9 @@ and a.semester = '2026' and a.week=1 and a.dayofweek = 1 and a.section = 1  wher
 
 # 查询uid=1的老师预约的实验室
 explain
-select u.name ,l.name,a.week,a.dayofweek,a.section,c.name from `2022222994`.user u join `2022222994`.course c on teacher_id = u.id
-join `2022222994`.appointment a on a.course ->> '$.id' = c.id
-join `2022222994`.lab l on l.id = a.lab_id
+select u.name ,l.name,a.week,a.dayofweek,a.section,c.name from user u join course c on teacher_id = u.id
+join appointment a on a.course ->> '$.id' = c.id
+join lab l on l.id = a.lab_id
 where u.id = '1';
 
 # 查询指定课程的预约记录
@@ -37,6 +37,19 @@ where a.teacher ->> '$.id' = '1';
 explain
 select * from lab l left join  appointment a on a.lab_id= l.id
 and a.week =1 and a.dayofweek = 1 where a.lab_id is null and l.state = 1;
+
+explain
+SELECT state, count(state) as account from lab group by state;
+
+SELECT
+    CASE
+        WHEN state = '0' THEN 'repairLab'
+        WHEN state = '1' THEN 'leisureLab'
+        ELSE 'useLab'
+        END AS state_name,
+    count(state) AS account
+FROM lab
+GROUP BY state;
 
 
 # 基于周/星期，查询空闲节可用教室 改进版

@@ -5,8 +5,6 @@ Content-Type: application/json
   "account": "admin",
   "password": "admin"
 }
-###
-GET localhost:8080/api/admin/getData
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIwMUpGTU4wTkJDWFQ1RlZEOVg5OTJOVjg3VCIsInJvbGUiOiJzcVdmIiwiaWF0IjoxNzM1MDQ2MzM3LCJleHAiOjE3MzUxMzI3Mzd9.VpfPemrKnH_Wd6750eNQfiFBf2oZigET2g7HbxjWvDg
-
-
+### error
+GET localhost:8080/api/admin/data
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1MDk0NzgwLCJleHAiOjE3MzUxODExODB9.c54CuKzyz2khL9qY0BftM1nVjqYnRbK8h04RLxmtu0I
