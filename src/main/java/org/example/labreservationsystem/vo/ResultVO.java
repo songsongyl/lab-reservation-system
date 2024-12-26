@@ -15,7 +15,7 @@ public class ResultVO {
     private String message; // 操作出错，返回出错信息
     private Object data;   //操作成功，返回200业务码和具体信息，因为不知道什么类型，所以使用object
 
-
+    private static final ResultVO EMPTY = ResultVO.builder().code(200).build();
     //操作成功，返回
     public static ResultVO success(Object data) {
         return ResultVO.builder()
@@ -23,7 +23,9 @@ public class ResultVO {
                 .data(data)
                 .build();
     }
-
+    public static ResultVO ok() {
+        return EMPTY;
+    }
     //操作失败，通用错误枚举
     public static ResultVO error(Code code) {
         return ResultVO.builder()

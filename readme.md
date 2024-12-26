@@ -207,7 +207,8 @@ create table if not exists `lab` (
      description varchar(500)  null,
      manager json null  comment '{id, name}',
     enable_equipment tinyint unsigned null ,/*可用设备数量*/
-     index(state)
+     index(state),
+     unique(name)
 );
 
 create table if not exists `news` (

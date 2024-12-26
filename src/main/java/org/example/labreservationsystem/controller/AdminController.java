@@ -21,8 +21,9 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
     //adminService 中有个方法 返回空闲中，维修中，使用中的设备数量
-    @GetMapping( "data")
+    @GetMapping( "graph")
     public ResultVO accountLabByState() {
+        log.debug("111");
         List<LabCountDTO> labCountDTOList = adminService.countLabByState();
 //        log.info("Request URI: {}", request.getRequestURI());
         return ResultVO.success(labCountDTOList);
