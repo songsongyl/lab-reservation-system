@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends CrudRepository<Appointment,String> {
     @Query("""
-    select dayofweek,count(distinct lab_id) as quantity from appointment where week=:week group by dayofweek;
+    select dayofweek,count(distinct lab_id) as quantity from appointment  group by dayofweek;
 """)
-    List<LabCountByDayofweekDTO> countLabByDayofweek(int week);
+    List<LabCountByDayofweekDTO> countLabByDayofweek();
 
     @Query("""
     select *

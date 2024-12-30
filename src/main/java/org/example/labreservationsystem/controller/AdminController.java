@@ -35,13 +35,13 @@ public class AdminController {
     @Operation(summary = "显示实验室状态")
     @GetMapping("graph1")
     public ResultVO accountLabByStateWeek() {
-        Map<String,List<?>> labState = adminService.getLabState(2);
+        Map<String,List<?>> labState = adminService.getLabState();
         return ResultVO.success(labState);
     }
 
     @GetMapping("graph3")
     public ResultVO accountByDayOfWeek() {
-        List<LabCountByDayofweekDTO> labCountByDayofweekDTOS =  adminService.countLabByDayofweek(3);
+        List<LabCountByDayofweekDTO> labCountByDayofweekDTOS =  adminService.countLabByDayofweek();
         return ResultVO.success(labCountByDayofweekDTOS);
     }
 }
