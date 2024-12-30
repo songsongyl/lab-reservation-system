@@ -39,7 +39,7 @@ select * from lab l left join  appointment a on a.lab_id= l.id
 and a.week =1 and a.dayofweek = 1 where a.lab_id is null and l.state = 1;
 
 explain
-SELECT state, count(state) as account from lab group by state;
+SELECT state, count(state) as quantity from lab group by state;
 
 SELECT
     CASE
@@ -47,7 +47,7 @@ SELECT
         WHEN state = '1' THEN 'leisureLab'
         ELSE 'useLab'
         END AS state_name,
-    count(state) AS account
+    count(state) AS quantity
 FROM lab
 GROUP BY state;
 

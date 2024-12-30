@@ -14,16 +14,7 @@ import java.util.List;
 public interface AdminRepository extends CrudRepository<Lab,String> {
     @Transactional
     @Query("""
-       SELECT
-           CASE
-               WHEN state = '0' THEN 'repairLab'
-               WHEN state = '1' THEN 'leisureLab'
-               ELSE 'useLab'
-               END AS state_name,
-           count(state) AS account
-       FROM lab
-       GROUP BY state;
-       
+      SELECT state, count(state) as quantity from lab group by state
 """)
     List<LabCountDTO> countLabByState();
 

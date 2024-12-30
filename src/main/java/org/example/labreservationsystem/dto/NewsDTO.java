@@ -1,14 +1,18 @@
 package org.example.labreservationsystem.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabCountDTO {
-    private short state;
-    private short quantity;
+public class NewsDTO {
+    private String title;
+    private String author;
+    private String content;
+    private LocalDateTime updateTime;
 }

@@ -14,7 +14,7 @@ import org.example.labreservationsystem.component.JWTComponent;
 import java.util.Map;
 @Slf4j
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/api/")
 public class LoginController {
@@ -35,7 +35,7 @@ public class LoginController {
         String token = jwtComponent.encode(Map.of("uid", userR.getId(),"role",userR.getRole()));
         response.setHeader("token", token);
         //request 没有这个方法
-        response.setHeader("role", user.getRole());
+        response.setHeader("role", userR.getRole());
         return ResultVO.success(userR);
     }
 }

@@ -3,12 +3,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class LabCountDTO {
-    private short state;
-    private short quantity;
+@NoArgsConstructor
+public class EnableEquipmentCount {
+    private String name;
+    private int enableQuantity;
+    private int unableQuantity;
 }
