@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.labreservationsystem.dto.LabCountByDayofweekDTO;
 import org.example.labreservationsystem.dto.LabCountDTO;
 import org.example.labreservationsystem.service.AdminService;
 import org.example.labreservationsystem.vo.ResultVO;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
     //adminService 中有个方法 返回空闲中，维修中，使用中的设备数量
-    @GetMapping( "graph")
+    @GetMapping( "graph2")
     public ResultVO accountLabByState() {
         log.debug("111");
         List<LabCountDTO> labCountDTOList = adminService.countLabByState();
@@ -32,21 +33,15 @@ public class AdminController {
         return ResultVO.success(labCountDTOList);
     }
     @Operation(summary = "显示实验室状态")
-    @GetMapping("labstate")
+    @GetMapping("graph1")
     public ResultVO accountLabByStateWeek() {
         Map<String,List<?>> labState = adminService.getLabState(2);
         return ResultVO.success(labState);
     }
 
-    @Operation(summary = "查看所有公告")
-    @GetMapping("news")
-    public ResultVO findAllNews() {
-        return ResultVO.success(adminService.findAllNews());
+    @GetMapping("graph3")
+    public ResultVO accountByDayOfWeek() {
+        List<LabCountByDayofweekDTO> labCountByDayofweekDTOS =  adminService.countLabByDayofweek(3);
+        return ResultVO.success(labCountByDayofweekDTOS);
     }
-    @Operation(summary = "查看所有实验室信息")
-    @GetMapping("labs")
-    public ResultVO findAllLabs() {
-        return ResultVO.success(adminService.findAllLabs());
-    }
-
 }
