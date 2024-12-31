@@ -1,6 +1,7 @@
 package org.example.labreservationsystem.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.labreservationsystem.dox.News;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,5 +16,15 @@ class AdminServiceTest {
     @Test
    public void countLabByState() {
        log.debug(adminService.countLabByState().toString());
+    }
+    @Test
+    public void updateNews(){
+        News news = News.builder().author("ds").title("11").content("22").build();
+        adminService.updateNewsById("01JGAMXXV8DSJR0ZA4YQABY56",news);
+    }
+    @Test
+    public void addNews(){
+        News news = News.builder().author("433").title("11").content("22").build();
+        adminService.addNews(news);
     }
 }

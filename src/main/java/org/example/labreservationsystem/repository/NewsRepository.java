@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends CrudRepository<News,String> {
     @Query("""
-    select title,author,content,update_time from news
+    select id,title,author,content,update_time from news
 """)
     List<NewsDTO> findAllNews();
 

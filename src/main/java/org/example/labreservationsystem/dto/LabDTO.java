@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LabDTO {
+    private String id;
     private String name;
     private int state;
     private int quantity;
