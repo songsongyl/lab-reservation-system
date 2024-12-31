@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
     @Operation(summary = "查看所有公告")
-    @GetMapping("news")
+    @GetMapping("allnews")
     public ResultVO findAllNews() {
         return ResultVO.success(userService.findAllNews());
     }

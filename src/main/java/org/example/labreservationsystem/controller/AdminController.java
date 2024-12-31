@@ -4,15 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.labreservationsystem.dox.News;
 import org.example.labreservationsystem.dto.LabCountByDayofweekDTO;
 import org.example.labreservationsystem.dto.LabCountDTO;
+import org.example.labreservationsystem.repository.NewsRepository;
 import org.example.labreservationsystem.service.AdminService;
 import org.example.labreservationsystem.vo.ResultVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+
     //adminService 中有个方法 返回空闲中，维修中，使用中的设备数量
     @GetMapping( "graph2")
     public ResultVO accountLabByState() {
@@ -44,4 +44,20 @@ public class AdminController {
         List<LabCountByDayofweekDTO> labCountByDayofweekDTOS =  adminService.countLabByDayofweek();
         return ResultVO.success(labCountByDayofweekDTOS);
     }
+    @DeleteMapping("news/{id}")
+    public ResultVO deleteNewsById(String id){
+        adminService.deleteNewsById(id);
+        return ResultVO.ok();
+    }
+    @PatchMapping("news/{id}")
+    public ResultVO updateNewsById(String id,@RequestBody News news){
+        adminService.updateNewsById(id,news);
+        return ResultVO.success(news);
+    }
+    @PostMapping("news")
+    public ResultVO addNews(@RequestBody News news){
+        adminService.addNews(news);
+        return ResultVO.success(news);
+    }
+
 }

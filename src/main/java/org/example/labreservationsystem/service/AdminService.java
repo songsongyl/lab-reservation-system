@@ -2,12 +2,15 @@ package org.example.labreservationsystem.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.labreservationsystem.dox.News;
 import org.example.labreservationsystem.dox.User;
 import org.example.labreservationsystem.dto.*;
 import org.example.labreservationsystem.repository.*;
+import org.example.labreservationsystem.vo.ResultVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -52,6 +55,18 @@ public class AdminService {
         return Map.of("enableEquipmentCountList",enableEquipmentCountList);
     }
 
+    @Transactional
+    public  void addNews(News news) {
+        newsRepository.save(news);
+    }
+    @Transactional
+    public void updateNewsById(String id, News news){
+    newsRepository.deleteById(id);
+    newsRepository.save(news);
 
-
+    }
+    @Transactional
+    public void deleteNewsById(String id) {
+        newsRepository.deleteById(id);
+    }
 }
