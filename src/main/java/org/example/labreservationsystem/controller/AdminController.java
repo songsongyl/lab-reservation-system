@@ -45,13 +45,13 @@ public class AdminController {
         return ResultVO.success(labCountByDayofweekDTOS);
     }
     @DeleteMapping("news/{id}")
-    public ResultVO deleteNewsById(String id){
+    public ResultVO deleteNewsById(@PathVariable String id){
         adminService.deleteNewsById(id);
         return ResultVO.ok();
     }
-    @PatchMapping("news/{id}")
-    public ResultVO updateNewsById(String id,@RequestBody News news){
-        adminService.updateNewsById(id,news);
+    @PatchMapping("news")
+    public ResultVO updateNewsById(@RequestBody News news){
+        adminService.updateNewsById(news);
         return ResultVO.success(news);
     }
     @PostMapping("news")

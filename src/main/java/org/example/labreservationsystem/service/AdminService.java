@@ -60,8 +60,8 @@ public class AdminService {
         newsRepository.save(news);
     }
     @Transactional
-    public void updateNewsById(String id, News news){
-    newsRepository.deleteById(id);
+    public void updateNewsById(News news){
+//    newsRepository.deleteById(id);
     newsRepository.save(news);
 
     }
