@@ -178,9 +178,9 @@ public class UserService {
             throw new XException().builder().number(Code.ERROR).message("老师或课程不存在").build();
         }
         Map<String, List<Lab>> map = new HashMap<>();
-        List<Lab> labs1 = labRepository.findGoodLabs(teacherId,courseId);
+        List<Lab> labs1 = labRepository.findEnableLabs(teacherId,courseId);
         map.put("座位充足实验室",labs1);
-        List<Lab> labs2 = labRepository.findBadLabs(teacherId,courseId);
+        List<Lab> labs2 = labRepository.findUnableLabs(teacherId,courseId);
         map.put("座位不够实验室",labs2);
         return map;
     }
