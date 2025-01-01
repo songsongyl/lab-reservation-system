@@ -40,7 +40,7 @@ class UserServiceTest {
 
     @Test
     void getCourses() {
-        List<Appointment1DTO> appointment1s = userService.getCourses("24-1","01JFJ5CWY6FD4XTTHR42FBS6A4");
+        List<Appointment1DTO> appointment1s = userService.getCourses("24-1","8");
         for(Appointment1DTO appointment1 : appointment1s) {
             log.debug("{}",appointment1);
         }
@@ -63,7 +63,7 @@ class UserServiceTest {
     void deleteCoursesByIds() {
         List<String> ids = new ArrayList<>();
         ids.add("1");
-        userService.deleteCoursesByIds("01JFJ5CWY6FD4XTTHR42FBS6A4",ids);
+        userService.deleteCoursesByIds("8",ids);
     }
 
     @Test
@@ -76,20 +76,20 @@ class UserServiceTest {
 
     @Test
     void getHours() {
-        int hours = userService.getHours("01JFJ5CWY6FD4XTTHR42FBS6A4", "1");
+        int hours = userService.getHours("8", "7");
         log.debug("{}",hours);
     }
 
     @Test
     void getLabs() {
-        Map<String, List<Lab>> map= userService.getLabs("01JFJ5CWY6FD4XTTHR42FBS6A4","1");
+        Map<String, List<Lab>> map= userService.getLabs("8","7");
         for (Map.Entry<String, List<Lab>> entry : map.entrySet()) {
             log.debug("键: " + entry.getKey());
             log.debug("对应的值列表: ");
             for (Lab lab : entry.getValue()) {
                 log.debug("{}",lab);
             }
-            System.out.println("------------------------");
+
         }
     }
 

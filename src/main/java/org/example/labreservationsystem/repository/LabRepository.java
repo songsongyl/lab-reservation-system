@@ -27,7 +27,7 @@ public interface LabRepository extends CrudRepository<Lab,String> {
 """)
     List<LabDTO> findAllLabs();
 
-    //基于老师id，课程id，询状态可用，人数可用教室
+    //基于老师id，课程id，查询状态可用，人数可用教室
     @Query("""
 SELECT l.*
 FROM lab l

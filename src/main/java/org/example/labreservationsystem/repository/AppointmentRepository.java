@@ -21,4 +21,6 @@ public interface AppointmentRepository extends CrudRepository<Appointment,String
     List<Appointment> findAppointmentByTeacherId(String teacherId);
 
     List<Appointment> findAllByLabId(String labId);
+
+    List<Appointment> findByTeacherAndSemester(String tid,String semester);
 }

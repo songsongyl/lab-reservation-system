@@ -123,13 +123,9 @@ public class AdminService {
         }
 
     }
-    //修改实验室状态
+
     @Transactional
     public void addLab(String role,Lab lab) {
-        Lab l = labRepository.findById(lab.getId()).orElse(null);
-        if(l == null) {
-            throw XException.builder().number(Code.ERROR).message("实验室不存在").build();
-        }
         if(!role.equals("sqWf")) {
             throw XException.builder()
                     .code(Code.FORBIDDEN)

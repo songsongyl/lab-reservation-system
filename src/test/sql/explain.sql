@@ -273,7 +273,14 @@ explain
 select * from appointment a where a.lab_id = '1';
 
 
-
+SELECT
+    a.*,c.*
+FROM
+    appointment a
+        JOIN
+    course c ON a.teacher ->> '$.id' = c.teacher_id AND a.course ->> '$.id' = c.id
+WHERE
+    a.teacher ->> '$.id' = '8' and a.semester='24-1';
 
 
 

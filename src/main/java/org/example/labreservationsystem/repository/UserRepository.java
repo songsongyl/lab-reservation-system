@@ -27,4 +27,8 @@ WHERE
 """ , resultSetExtractorClass = Appointment1DTOResultSetExtractor.class)
     List<Appointment1DTO> findCourseByTeacherIdAndSemester(String semester, String teacherId);
 
+    @Query("""
+select * from course c where teacher_id =:id;
+""")
+   User findByTeacherId(String id);
 }

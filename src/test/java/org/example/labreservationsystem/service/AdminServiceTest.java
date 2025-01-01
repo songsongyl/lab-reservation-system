@@ -19,7 +19,7 @@ class AdminServiceTest {
     }
     @Test
     public void updateNews(){
-        News news = News.builder().author("ds").title("11").content("22").build();
+        News news = News.builder().id("01JGD84XSNTCEXN7JBTP6GYEJN").author("ds").title("11").content("22").build();
         adminService.updateNewsById("sqWf",news);
     }
     @Test

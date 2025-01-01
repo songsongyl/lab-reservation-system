@@ -29,7 +29,6 @@ class UserRepositoryTest {
     public void saveUser() {
         String account = "admin";
         User user = User.builder()
-
                 .name("syl")
                 .account(account)
                 .password(passwordEncoder.encode(account))
@@ -54,7 +53,7 @@ class UserRepositoryTest {
 
     @Test
     void findCourseByTeacherId() {
-        List<Appointment1DTO> appointment1s = userRepository.findCourseByTeacherIdAndSemester("24-1", "01JFJ5CWY6FD4XTTHR42FBS6A4");
+        List<Appointment1DTO> appointment1s = userRepository.findCourseByTeacherIdAndSemester("24-1", "8");
         for (Appointment1DTO appointment1 : appointment1s) {
             log.debug("{}", appointment1);
         }

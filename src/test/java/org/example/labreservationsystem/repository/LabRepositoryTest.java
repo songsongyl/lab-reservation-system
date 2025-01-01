@@ -38,23 +38,20 @@ class LabRepositoryTest {
     }
 
     @Test
-    void findGoodLabs() {
-        List<Lab> labs = labRepository.findGoodLabs("01JFHY1JRC5BJN919YEHQYXWAR", "2");
+    void findEnableLabs() {
+        List<Lab> labs = labRepository.findEnableLabs("8", "7");
         for(Lab lab:labs) {
             log.debug("{}",lab);
         }
     }
 
     @Test
-    void findBadLabs() {
-        List<Lab> labs = labRepository.findBadLabs("01JFHY1JRC5BJN919YEHQYXWAR", "2");
+    void findUnableLabs() {
+        List<Lab> labs = labRepository.findUnableLabs("8", "7");
         for(Lab lab:labs) {
             log.debug("{}",lab);
         }
     }
 
-    @Test
-    void findLabs() {
 
-    }
 }

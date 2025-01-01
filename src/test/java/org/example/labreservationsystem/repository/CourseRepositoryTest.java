@@ -20,7 +20,7 @@ class CourseRepositoryTest {
 
     @Test
     void findCoursesByTeacherId() {
-        List<Course> courses = courseRepository.findCoursesByTeacherId("1");
+        List<Course> courses = courseRepository.findCoursesByTeacherId("8");
         for(Course c : courses) {
             log.debug("{}",c);
         }
@@ -62,17 +62,18 @@ class CourseRepositoryTest {
     }
     @Test
     void deleteCoursesByTeacherId() {
+        courseRepository.deleteCoursesByTeacherId("1");
     }
 
     @Test
     void findCountByTeacherIdAndCourseId() {
-        int count = courseRepository.findCountByTeacherIdAndCourseId("01JFJ951VSQA8B0DE5P1PTV5EJ","3");
+        int count = courseRepository.findCountByTeacherIdAndCourseId("8","7");
         log.debug("{}",count);
     }
 
     @Test
     void deleteCourseByTeacherIdAndCourseId() {
-        courseRepository.deleteCourseByTeacherIdAndCourseId("10","4");
+        courseRepository.deleteCourseByTeacherIdAndCourseId("8","7");
     }
 
     @Test

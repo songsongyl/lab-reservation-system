@@ -24,7 +24,7 @@ private NewsRepository newsRepository;
 
     @Test
     void deleteById() {
-        newsRepository.deleteById("01JGAMXXV8DSJR0ZA4YQABYW23");
+        newsRepository.deleteById("01JGAMXXV8DSJR0ZA4YQABYWD2");
     }
 
 

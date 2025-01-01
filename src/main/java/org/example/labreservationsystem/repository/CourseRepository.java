@@ -11,7 +11,12 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends ListCrudRepository<Course,String> {
     List<Course> findCoursesByTeacherId(String id);
+   @Modifying
+   @Query("""
+delete  from course c where c.teacher_id = :id;
+""")
     void deleteCoursesByTeacherId(String id);
+
     @Query("""
 SELECT COUNT(*) AS record_count
 FROM `appointment`
@@ -19,9 +24,11 @@ WHERE teacher ->> '$.id' = :teacherId
   AND course ->> '$.id' = :courseId
 """)
     int findCountByTeacherIdAndCourseId(String teacherId,String courseId);
+
     @Modifying
     @Query("delete from course  where course.teacher_id=:teacherId and course.id=:courseId")
     void deleteCourseByTeacherIdAndCourseId(String teacherId,String courseId);
+
     @Modifying
     @Query("""
 DELETE FROM course c
