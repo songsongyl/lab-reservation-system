@@ -69,4 +69,11 @@ public class AdminService {
     public void deleteNewsById(String id) {
         newsRepository.deleteById(id);
     }
+    @Transactional
+    public void deleteNews(List<String> ids) {
+        for (String id : ids) {
+            newsRepository.deleteById(id);
+        }
+
+    }
 }

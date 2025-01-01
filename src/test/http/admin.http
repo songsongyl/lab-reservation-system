@@ -20,3 +20,13 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIwMUpGTU4wTkJDWFQ1RlZEOVg5
   "content": "222",
   "title": "333"
 }
+
+###
+DELETE localhost:8080/api/admin/news
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
+Content-Type: application/json
+
+[
+  "01JGAMXXV8DSJR0ZA4YQABYWD5",
+  "01JGAMXXV8DSJR0ZA4YQABYWD7"
+]

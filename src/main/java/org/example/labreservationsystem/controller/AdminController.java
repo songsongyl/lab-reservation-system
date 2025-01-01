@@ -59,5 +59,10 @@ public class AdminController {
         adminService.addNews(news);
         return ResultVO.success(news);
     }
+    @DeleteMapping("news")
+    public ResultVO deleteNews(@RequestBody List<String> newsIds){
+        adminService.deleteNews(newsIds);
+        return ResultVO.ok();
+    }
 
 }
