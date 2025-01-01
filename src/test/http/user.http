@@ -7,19 +7,19 @@ GET localhost:8080/api/users/labs
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1NzI5NjUwLCJleHAiOjE3MzU4MTYwNTB9.BkDvvbNNipXIpWC6liAqZzTVcvaYK_g-vHT82gagtEg
 
 ### success 修改密码
-PATCH localhost:8080/api/users/password
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+PUT localhost:8080/api/users/password
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Iiwicm9sZSI6Indld2UiLCJpYXQiOjE3MzU3MzI0MTEsImV4cCI6MTczNTgxODgxMX0.2KciBL2GgFabge_-plhudlvwlkHt1N4YKyzYmzL5A-I
 Content-Type: application/json
 
 {
   "password": "account"
 }
 
-### 查询指定老师指定学期的课表
+### success 查询指定老师指定学期的课表
 GET localhost:8080/api/users/coursetable/24-1
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzA3OTAsImV4cCI6MTczNTgxNzE5MH0.OUJbzD2EYuz4jLHt0ibPwCdxkb_IOYAvNMdqNWxYHz8
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Iiwicm9sZSI6Indld2UiLCJpYXQiOjE3MzU3MzI0MTEsImV4cCI6MTczNTgxODgxMX0.2KciBL2GgFabge_-plhudlvwlkHt1N4YKyzYmzL5A-I
 
-### 获取老师的全部课程信息
+### success 获取老师的全部课程信息
 GET http://localhost:8080/api/users/courses
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzA3OTAsImV4cCI6MTczNTgxNzE5MH0.OUJbzD2EYuz4jLHt0ibPwCdxkb_IOYAvNMdqNWxYHz8
 
@@ -90,3 +90,21 @@ Content-Type: application/json
   "course": "2",
   "teacher": "2"
 }
+
+
+### success 基于实验室id，查预约表
+GET localhost:8080/api/users/appointments/901
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+
+### success 基于老师id,课程id，获取人数可用和不可用的实验室
+GET localhost:8080/api/users/labs/2
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+
+
+### 删除指定老师指定id对应的课程,要判断是否有预约记录
+DELETE localhost:8080/api/users/courses/course/3
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+
+### 删除指定老师指定ids对应的课程,要判断是否有预约记录
+DELETE localhost:8080/api/users/courses/3,5
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo

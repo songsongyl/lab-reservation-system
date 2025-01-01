@@ -31,4 +31,8 @@ WHERE
 select * from course c where teacher_id =:id;
 """)
    User findByTeacherId(String id);
+    @Query("""
+select * from user u where id = :id;
+""")
+    User findByUserId(String id);
 }

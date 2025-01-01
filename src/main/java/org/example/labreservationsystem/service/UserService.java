@@ -46,7 +46,7 @@ public class UserService {
     //指定老师id查全部课表
     @Transactional
     public List<Appointment1DTO> getCourses(String semester , String teacherId) {
-        User u  = userRepository.findByTeacherId(teacherId);
+        User u  = userRepository.findByUserId(teacherId);
         if(u == null) {
             throw XException.builder().number(Code.ERROR).message("老师不存在").build();
         }
@@ -55,7 +55,7 @@ public class UserService {
     //基于老师id获取全部课程信息
     @Transactional
     public List<Course> findCoursesByTeacherId(String id) {
-        User u  = userRepository.findByTeacherId(id);
+        User u  = userRepository.findByUserId(id);
         if(u == null) {
             throw XException.builder().number(Code.ERROR).message("老师不存在").build();
         }
@@ -68,8 +68,8 @@ public class UserService {
     }
     //基于课程id删除某一门课
     @Transactional
-    public void deleteCourseById( String teacherId, String courseId) {
-        User u = userRepository.findByTeacherId(teacherId);
+    public void deleteCourseById(String teacherId, String courseId) {
+        User u = userRepository.findByUserId(teacherId);
         Course c = courseRepository.findById(courseId).orElse(null);
         if(u == null || c == null) {
             throw new XException().builder().number(Code.ERROR).message("老师或课程不存在").build();
@@ -134,7 +134,7 @@ public class UserService {
     //删除指定老师id的全部课程
     @Transactional
     public void deleteAllCoursesByTeacherId(String id) {
-        User u  = userRepository.findByTeacherId(id);
+        User u  = userRepository.findByUserId(id);
         if(u == null) {
             throw XException.builder().number(Code.ERROR).message("老师不存在").build();
         }
@@ -160,7 +160,7 @@ public class UserService {
     //基于老师id,课程id,获取已经选了多少学时
     @Transactional
     public int getHours(String teacherId, String courseId) {
-        User u = userRepository.findByTeacherId(teacherId);
+        User u = userRepository.findByUserId(teacherId);
         Course c = courseRepository.findById(courseId).orElse(null);
         if(u == null || c == null) {
             throw new XException().builder().number(Code.ERROR).message("老师或课程不存在").build();
@@ -171,7 +171,7 @@ public class UserService {
     @Transactional
     //基于老师id,课程id，获取人数可用和不可用的实验室
     public Map<String, List<Lab>> getLabs(String teacherId, String courseId) {
-        User u = userRepository.findByTeacherId(teacherId);
+        User u = userRepository.findByUserId(teacherId);
         Course c = courseRepository.findById(courseId).orElse(null);
         if(u == null || c == null) {
             throw new XException().builder().number(Code.ERROR).message("老师或课程不存在").build();
@@ -215,10 +215,11 @@ public class UserService {
     public void updateUserPassword(String uid, String password) {
 //        log.debug(uid);
 //        log.debug(password);
-        User user = userRepository.findByTeacherId(uid);
+        User user = userRepository.findByUserId(uid);
         if(user == null) {
             throw  XException.builder().number(Code.ERROR).message("用户不存在").build();
         }
+//        userRepository.deleteById(user.getId());
         user.setPassword(passwordEncoder.encode(password));
         //保存
         userRepository.save(user);

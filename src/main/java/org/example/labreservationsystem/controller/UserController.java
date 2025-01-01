@@ -30,11 +30,12 @@ public class UserController {
         return ResultVO.success(userService.findAllLabs());
     }
     //修改自己的密码
-    @PatchMapping("password")
-    public ResultVO patchPassword(@RequestBody User user, @RequestAttribute("uid") String uid) {
-        userService.updateUserPassword(uid, user.getPassword());
+    @PutMapping("password")
+    public ResultVO updatePassword(@RequestBody String password, @RequestAttribute("uid") String uid) {
+        userService.updateUserPassword(uid, password);
         return ResultVO.ok();
     }
+
     //获取指定老师id，和学期的全部课表
     @GetMapping("coursetable/{semester}")
     public ResultVO getCourses(@PathVariable String semester ,@RequestAttribute("uid") String teacherId) {
@@ -58,7 +59,7 @@ public class UserController {
         return ResultVO.ok();
     }
     //删除指定老师指定id对应的课程,要判断是否有预约记录
-    @DeleteMapping("courses/{courseId}")
+    @DeleteMapping("courses/course/{courseId}")
     public ResultVO deleteCourse(@RequestAttribute("uid")String teacherId, @PathVariable String courseId) {
         userService.deleteCourseById(teacherId,courseId);
         return ResultVO.ok();

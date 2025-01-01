@@ -121,6 +121,6 @@ class UserServiceTest {
     @Test
     void updateUserPassword() {
         String account = "2022222908";
-        userService.updateUserPassword("01JFJAFCQPJ4V5621NHTVSYWME",account);
+        userService.updateUserPassword("3",account);
     }
 }
