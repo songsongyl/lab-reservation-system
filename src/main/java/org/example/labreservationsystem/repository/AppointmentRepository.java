@@ -19,4 +19,6 @@ public interface AppointmentRepository extends CrudRepository<Appointment,String
     from appointment a where a.teacher ->> '$.id'=:teacherId
 """)
     List<Appointment> findAppointmentByTeacherId(String teacherId);
+
+    List<Appointment> findAllByLabId(String labId);
 }

@@ -7,12 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.labreservationsystem.dox.News;
 import org.example.labreservationsystem.dto.LabCountByDayofweekDTO;
 import org.example.labreservationsystem.dto.LabCountDTO;
-import org.example.labreservationsystem.repository.NewsRepository;
 import org.example.labreservationsystem.service.AdminService;
 import org.example.labreservationsystem.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +22,7 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
 
+    //统计图表2
     //adminService 中有个方法 返回空闲中，维修中，使用中的设备数量
     @GetMapping( "graph2")
     public ResultVO accountLabByState() {
@@ -32,33 +31,38 @@ public class AdminController {
 //        log.info("Request URI: {}", request.getRequestURI());
         return ResultVO.success(labCountDTOList);
     }
+    //统计图表1
     @Operation(summary = "显示实验室状态")
     @GetMapping("graph1")
     public ResultVO accountLabByStateWeek() {
         Map<String,List<?>> labState = adminService.getLabState();
         return ResultVO.success(labState);
     }
-
+    //统计图表3
     @GetMapping("graph3")
     public ResultVO accountByDayOfWeek() {
         List<LabCountByDayofweekDTO> labCountByDayofweekDTOS =  adminService.countLabByDayofweek();
         return ResultVO.success(labCountByDayofweekDTOS);
     }
+    //删除单个公告
     @DeleteMapping("news/{id}")
     public ResultVO deleteNewsById(@PathVariable String id){
         adminService.deleteNewsById(id);
         return ResultVO.ok();
     }
+    //更新公告
     @PatchMapping("news")
     public ResultVO updateNewsById(@RequestBody News news){
         adminService.updateNewsById(news);
         return ResultVO.success(news);
     }
+    //增加公告
     @PostMapping("news")
     public ResultVO addNews(@RequestBody News news){
         adminService.addNews(news);
         return ResultVO.success(news);
     }
+    //批量删除公告
     @DeleteMapping("news")
     public ResultVO deleteNews(@RequestBody List<String> newsIds){
         adminService.deleteNews(newsIds);

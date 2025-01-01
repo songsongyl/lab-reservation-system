@@ -2,15 +2,16 @@ package org.example.labreservationsystem.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.labreservationsystem.dox.Lab;
 import org.example.labreservationsystem.dox.News;
 import org.example.labreservationsystem.dox.User;
 import org.example.labreservationsystem.dto.*;
+import org.example.labreservationsystem.exception.Code;
+import org.example.labreservationsystem.exception.XException;
 import org.example.labreservationsystem.repository.*;
-import org.example.labreservationsystem.vo.ResultVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -51,22 +52,68 @@ public class AdminService {
 //        查看每周每一天有多少个实验室使用（不看节次，只要有课就是使用）
         List<LabCountByDayofweekDTO> labCountByDayofweekDTOList = appointmentRepository.countLabByDayofweek();
 //        查看每个实验室能用的设备数量
-        List<EnableEquipmentCount> enableEquipmentCountList = labRepository.countEnableEquipment();
+        List<EnableEquipmentCountDTO> enableEquipmentCountList = labRepository.countEnableEquipment();
         return Map.of("enableEquipmentCountList",enableEquipmentCountList);
     }
 
     @Transactional
-    public  void addNews(News news) {
+    public  void addNews(String role,News news) {
+        if(!role.equals("sqWf")) {
+            throw XException.builder()
+                    .code(Code.FORBIDDEN)
+                    .number(Code.FORBIDDEN.getCode())
+                    .message(Code.FORBIDDEN.getMessage())
+                    .build();
+        }
         newsRepository.save(news);
     }
     @Transactional
-    public void updateNewsById(News news){
+    public void updateNewsById(String role,News news){
 //    newsRepository.deleteById(id);
+        News n = newsRepository.findById(news.getId()).orElse(null);
+        if(n == null) {
+            throw XException.builder().number(Code.ERROR).message("公告不存在").build();
+        }
+        if(!role.equals("sqWf")) {
+            throw XException.builder()
+                    .code(Code.FORBIDDEN)
+                    .number(Code.FORBIDDEN.getCode())
+                    .message(Code.FORBIDDEN.getMessage())
+                    .build();
+        }
     newsRepository.save(news);
 
     }
+
+    //列出全部用户
+    public List<User> listUsers() {
+        return userRepository.findAll();
+    }
+    //管理员重置密码
     @Transactional
-    public void deleteNewsById(String id) {
+    public void updateUserPassword(String account) {
+        User user = userRepository.findByAccount(account);
+        if(user == null) {
+            throw  XException.builder().number(Code.ERROR).message("用户不存在").build();
+        }
+        user.setPassword(passwordEncoder.encode(account));
+        //保存
+        userRepository.save(user);
+    }
+    @Transactional
+    public void deleteNewsById(String role,String id) {
+        News n = newsRepository.findById(id).orElse(null);
+        if(n == null) {
+            throw XException.builder().number(Code.ERROR).message("公告不存在").build();
+
+        }
+        if(!role.equals("sqWf")) {
+            throw XException.builder()
+                    .code(Code.FORBIDDEN)
+                    .number(Code.FORBIDDEN.getCode())
+                    .message(Code.FORBIDDEN.getMessage())
+                    .build();
+        }
         newsRepository.deleteById(id);
     }
     @Transactional
@@ -75,5 +122,21 @@ public class AdminService {
             newsRepository.deleteById(id);
         }
 
+    }
+    //修改实验室状态
+    @Transactional
+    public void updateLab(String role,Lab lab) {
+        Lab l = labRepository.findById(lab.getId()).orElse(null);
+        if(l == null) {
+            throw XException.builder().number(Code.ERROR).message("实验室不存在").build();
+        }
+        if(!role.equals("sqWf")) {
+            throw XException.builder()
+                    .code(Code.FORBIDDEN)
+                    .number(Code.FORBIDDEN.getCode())
+                    .message(Code.FORBIDDEN.getMessage())
+                    .build();
+        }
+        labRepository.save(lab);
     }
 }
