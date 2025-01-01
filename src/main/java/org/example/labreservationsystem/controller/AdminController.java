@@ -79,12 +79,12 @@ public class AdminController {
         return ResultVO.ok();
     }
     //添加用户
-    @PostMapping("users")
+    @PostMapping("user")
     public ResultVO postUser(@RequestBody User user) {
         adminService.addUser(user);
         return ResultVO.ok();
     }
-    //重置密码
+    //基于账号重置密码
     @PutMapping("users/{account}/password")
     public ResultVO putPassword(@PathVariable String account) {
         adminService.updateUserPassword(account);

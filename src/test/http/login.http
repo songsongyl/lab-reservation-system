@@ -13,3 +13,11 @@ Content-Type: application/json
 "account": "admin",
 "password": "admin"
 }
+### 管理员
+POST localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "account": "account02",
+  "password": "account02"
+}

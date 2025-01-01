@@ -2,17 +2,31 @@ GET localhost:8080/api/users/news
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1NTY0MjU2LCJleHAiOjE3MzU2NTA2NTZ9.qu7WkWs6YzBatuFWWHFp1YYua9-bvaVftGzH9FvjXUk
 
 
-GET http://localhost:8080/api/teacher/courses/01JFJ5CWY6FD4XTTHR42FBS6A4
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+### success 查询所有实验室
+GET localhost:8080/api/users/labs
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1NzI5NjUwLCJleHAiOjE3MzU4MTYwNTB9.BkDvvbNNipXIpWC6liAqZzTVcvaYK_g-vHT82gagtEg
 
-###
-GET http://localhost:8080/api/teacher/coursesInfo/01JFJ5CWY6FD4XTTHR42FBS6A4
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
-
-###
-POST http://localhost:8080/api/teacher/updateCourse
+### success 修改密码
+PATCH localhost:8080/api/users/password
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
 Content-Type: application/json
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+{
+  "password": "account"
+}
+
+### 查询指定老师指定学期的课表
+GET localhost:8080/api/users/coursetable/24-1
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzA3OTAsImV4cCI6MTczNTgxNzE5MH0.OUJbzD2EYuz4jLHt0ibPwCdxkb_IOYAvNMdqNWxYHz8
+
+### 获取老师的全部课程信息
+GET http://localhost:8080/api/users/courses
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzA3OTAsImV4cCI6MTczNTgxNzE5MH0.OUJbzD2EYuz4jLHt0ibPwCdxkb_IOYAvNMdqNWxYHz8
+
+### success 更新课程
+PATCH http://localhost:8080/api/users/course
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+Content-Type: application/json
 
 {
   "id": "1",
@@ -24,10 +38,11 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZK
   "teacherId": "01JFJ5CWY6FD4XTTHR42FBS6A4",
   "experimentHour": 8
 }
-###
-POST http://localhost:8080/api/teacher/addCourse
+
+###  success 添加课程
+POST http://localhost:8080/api/users/course
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
 Content-Type: application/json
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
 
 {
   "name": "离散数学",
@@ -38,10 +53,40 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZK
   "teacherId": "01JFJ5CWY6FD4XTTHR42FBS6A4",
   "experimentHour": 8
 }
-###
-DELETE http://localhost:8080/api/teacher/deleteCourse/01JG8YQEAKFY8NX6VAXCR9ZTZD
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
 
-###
-DELETE http://localhost:8080/api/teacher/courses/4,5
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NTQ3Mzc3LCJleHAiOjE3MzU2MzM3Nzd9.GKEesSo6VyxUFTRAtmmNoSLLx4YIjhb86QAgYRpHqKY
+### success 预约
+POST localhost:8080/api/users/appointment
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+Content-Type: application/json
+
+{
+  "course": "2",
+  "dayofweek": "2",
+  "labId": "901",
+  "labName": "901",
+  "semester": "24-1",
+  "nature": "临时",
+  "section": "1",
+  "week": "8",
+  "teacher": "2"
+}
+
+### success 删除预约
+DELETE localhost:8080/api/users/appointment
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+Content-Type: application/json
+
+{
+  "id": "7"
+}
+
+### success 删除预约
+DELETE localhost:8080/api/users/appointment
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
+Content-Type: application/json
+
+{
+  "id": "3",
+  "course": "2",
+  "teacher": "2"
+}
