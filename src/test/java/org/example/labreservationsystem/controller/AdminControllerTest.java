@@ -41,15 +41,15 @@ class AdminControllerTest {
     @Test
     void updadteNews(){
         News news = News.builder().title("903维修").content("dsa").author("sda").build();
-        adminController.updateNewsById(news);
+        adminController.updateNewsById("sqWf",news);
     }
     @Test
     void deleteNewsById() {
-        adminController.deleteNewsById("01JGAMXXV8DSJR0ZA4YQABYW23");
+        adminController.deleteNewsById("sqWf","01JGAMXXV8DSJR0ZA4YQABYW23");
     }
     @Test
     void addNews(){
         News news = News.builder().author("sda").content("das").title("903维修").build();
-        adminController.addNews(news);
+        adminController.addNews("sqWf",news);
     }
 }

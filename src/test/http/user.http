@@ -1,2 +1,47 @@
 GET localhost:8080/api/users/news
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1NTY0MjU2LCJleHAiOjE3MzU2NTA2NTZ9.qu7WkWs6YzBatuFWWHFp1YYua9-bvaVftGzH9FvjXUk
+
+
+GET http://localhost:8080/api/teacher/courses/01JFJ5CWY6FD4XTTHR42FBS6A4
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+###
+GET http://localhost:8080/api/teacher/coursesInfo/01JFJ5CWY6FD4XTTHR42FBS6A4
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+###
+POST http://localhost:8080/api/teacher/updateCourse
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+{
+  "id": "1",
+  "name": "高等数学",
+  "quantity": 120,
+  "semester": "24-1",
+  "clazz": "数学与应用数学",
+  "type": 1,
+  "teacherId": "01JFJ5CWY6FD4XTTHR42FBS6A4",
+  "experimentHour": 8
+}
+###
+POST http://localhost:8080/api/teacher/addCourse
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+{
+  "name": "离散数学",
+  "quantity": 120,
+  "semester": "24-1",
+  "clazz": "数学与应用数学",
+  "type": 1,
+  "teacherId": "01JFJ5CWY6FD4XTTHR42FBS6A4",
+  "experimentHour": 8
+}
+###
+DELETE http://localhost:8080/api/teacher/deleteCourse/01JG8YQEAKFY8NX6VAXCR9ZTZD
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NDY3Mjc1LCJleHAiOjE3MzU1NTM2NzV9.2eTObDjTZ-y5gNti5gWC7PPskZ6ITJk0zizXsgWd-uk
+
+###
+DELETE http://localhost:8080/api/teacher/courses/4,5
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiSnMwOSIsInVpZCI6IjAxSkZKNUNXWTZGRDRYVFRIUjQyRkJTNkE0IiwiaWF0IjoxNzM1NTQ3Mzc3LCJleHAiOjE3MzU2MzM3Nzd9.GKEesSo6VyxUFTRAtmmNoSLLx4YIjhb86QAgYRpHqKY
