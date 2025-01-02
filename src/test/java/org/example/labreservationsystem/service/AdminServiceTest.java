@@ -17,14 +17,5 @@ class AdminServiceTest {
    public void countLabByState() {
        log.debug(adminService.countLabByState().toString());
     }
-    @Test
-    public void updateNews(){
-        News news = News.builder().id("01JGD84XSNTCEXN7JBTP6GYEJN").author("ds").title("11").content("22").build();
-        adminService.updateNewsById("sqWf",news);
-    }
-    @Test
-    public void addNews(){
-        News news = News.builder().author("433").title("11").content("22").build();
-        adminService.addNews("sqWf",news);
-    }
+
 }

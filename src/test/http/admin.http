@@ -10,38 +10,6 @@ Content-Type: application/json
 GET http://localhost:8080/api/admin/graph
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NTIzODgzLCJleHAiOjE3MzU2MTAyODN9.BSC2lq4m-GcZoBVDBxh9kAmBrVW_uFpBUq0Fkxcko9A
 
-### success 增加公告
-POST localhost:8080/api/admin/news
-Content-Type: application/json
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIwMUpGTU4wTkJDWFQ1RlZEOVg5OTJOVjg3VCIsInJvbGUiOiJzcVdmIiwiaWF0IjoxNzM1NjExNDQ2LCJleHAiOjE3MzU2OTc4NDZ9.DL2yHyty-NhZIPT2H00xeyEu3qCDxZhhE9e_cA3GHkM
-
-{
-  "author": "111",
-  "content": "222",
-  "title": "333"
-}
-
-### success 批量删除
-DELETE localhost:8080/api/admin/news
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
-Content-Type: application/json
-
-[
-  "01JGAMXXV8DSJR0ZA4YQABYWD5",
-  "01JGAMXXV8DSJR0ZA4YQABYWD7"
-]
-
-### success 更新指定公告
-PATCH  localhost:8080/api/admin/news
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
-Content-Type: application/json
-
-{
-  "id": "01JGGP9YP6RGBJ7CRJNPNFXBRR",
-  "title": "sd",
-  "content": "sda",
-  "author": "11111"
-}
 
 ### success 获取全部用户
 GET localhost:8080/api/admin/users

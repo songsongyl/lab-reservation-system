@@ -20,31 +20,35 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class AdminService {
-    private final AdminRepository adminRepository;
+    private final AdminRepository AdminRepository;
     private final LabRepository labRepository;
     private final UserRepository userRepository;
     private final AppointmentRepository appointmentRepository;
     private final NewsRepository newsRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public List<LabCountDTO> countLabByState() {
-        log.debug(adminRepository.countLabByState().toString());
-        return adminRepository.countLabByState();
+        log.debug(AdminRepository.countLabByState().toString());
+        return AdminRepository.countLabByState();
     }
 //    @Transactional
 //    public void addSingleUser(User user) {
 //        userRepository.save(user);
 //    }
+
     @Transactional
     public List<LabCountByDayofweekDTO> countLabByDayofweek() {
         return appointmentRepository.countLabByDayofweek();
     }
+
     //管理员添加用户
     @Transactional
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getAccount()));
         userRepository.save(user);
     }
+
     @Transactional
     public Map<String, List<?>> getLabState() {
 //        查看每个状态的实验室数
@@ -56,39 +60,13 @@ public class AdminService {
         return Map.of("enableEquipmentCountList",enableEquipmentCountList);
     }
 
-    @Transactional
-    public  void addNews(String role,News news) {
-        if(!role.equals("sqWf")) {
-            throw XException.builder()
-                    .code(Code.FORBIDDEN)
-                    .number(Code.FORBIDDEN.getCode())
-                    .message(Code.FORBIDDEN.getMessage())
-                    .build();
-        }
-        newsRepository.save(news);
-    }
-    @Transactional
-    public void updateNewsById(String role,News news){
-//    newsRepository.deleteById(id);
-        News n = newsRepository.findById(news.getId()).orElse(null);
-        if(n == null) {
-            throw XException.builder().number(Code.ERROR).message("公告不存在").build();
-        }
-        if(!role.equals("sqWf")) {
-            throw XException.builder()
-                    .code(Code.FORBIDDEN)
-                    .number(Code.FORBIDDEN.getCode())
-                    .message(Code.FORBIDDEN.getMessage())
-                    .build();
-        }
-    newsRepository.save(news);
 
-    }
 
     //列出全部用户
     public List<User> listUsers() {
         return userRepository.findAll();
     }
+
     //管理员重置密码
     @Transactional
     public void updateUserPassword(String account) {
@@ -100,30 +78,8 @@ public class AdminService {
         //保存
         userRepository.save(user);
     }
-    @Transactional
-    public void deleteNewsById(String role,String id) {
-        News n = newsRepository.findById(id).orElse(null);
-        if(n == null) {
-            throw XException.builder().number(Code.ERROR).message("公告不存在").build();
 
-        }
-        if(!role.equals("sqWf")) {
-            throw XException.builder()
-                    .code(Code.FORBIDDEN)
-                    .number(Code.FORBIDDEN.getCode())
-                    .message(Code.FORBIDDEN.getMessage())
-                    .build();
-        }
-        newsRepository.deleteById(id);
-    }
-    @Transactional
-    public void deleteNews(List<String> ids) {
-        for (String id : ids) {
-            newsRepository.deleteById(id);
-        }
-
-    }
-
+    //添加实验室
     @Transactional
     public void addLab(String role,Lab lab) {
         if(!role.equals("sqWf")) {
@@ -134,5 +90,10 @@ public class AdminService {
                     .build();
         }
         labRepository.save(lab);
+    }
+    //查询指定实验室管理员的所有实验室
+    @Transactional
+    public void findLabsByLabAdminId(String id){
+        labRepository.findLabs(id);
     }
 }

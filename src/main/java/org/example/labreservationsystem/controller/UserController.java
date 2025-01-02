@@ -30,7 +30,7 @@ public class UserController {
         return ResultVO.success(userService.findAllLabs());
     }
     //修改自己的密码
-    @PutMapping("password")
+    @PatchMapping("password")
     public ResultVO updatePassword(@RequestBody String password, @RequestAttribute("uid") String uid) {
         userService.updateUserPassword(uid, password);
         return ResultVO.ok();

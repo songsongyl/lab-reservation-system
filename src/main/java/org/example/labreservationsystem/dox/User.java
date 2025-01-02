@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class User {
   public static final String USER = "wewe";
   public static final String ADMIN = "sqWf";
+  public static final String LABADMIN = "lM07";
     @Id
     @CreatedBy
   private String id;
