@@ -16,23 +16,6 @@ public interface UserRepository extends ListCrudRepository<User, String> {
 
     User findByAccount(String account);
 
-    @Query(value = """
-SELECT
-    a.*,c.*
-FROM
-    appointment a
-        JOIN
-    course c ON a.teacher ->> '$.id' = c.teacher_id AND a.course ->> '$.id' = c.id
-WHERE
-    a.teacher ->> '$.id' = :teacherId and a.semester=:semester
-""" , resultSetExtractorClass = Appointment1DTOResultSetExtractor.class)
-    List<Appointment1DTO> findCourseByTeacherIdAndSemester(String semester, String teacherId);
-
-    @Query("""
-select * from course c where teacher_id =:id;
-""")
-   User findByTeacherId(String id);
-
     @Query("""
 select * from user u where id = :id;
 """)

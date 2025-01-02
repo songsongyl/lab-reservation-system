@@ -50,7 +50,7 @@ public class UserService {
         if(u == null) {
             throw XException.builder().number(Code.ERROR).message("老师不存在").build();
         }
-        return userRepository.findCourseByTeacherIdAndSemester(semester,teacherId);
+        return appointmentRepository.findCourseByTeacherIdAndSemester(semester,teacherId);
     }
     //基于老师id获取全部课程信息
     @Transactional
@@ -236,4 +236,8 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public List<Appointment> findAppointmentsByCIdAndTId(String cId, String tId) {
+        List<Appointment> byCourseId = appointmentRepository.findByCourseId(tId, cId);
+        return byCourseId;
+    }
 }

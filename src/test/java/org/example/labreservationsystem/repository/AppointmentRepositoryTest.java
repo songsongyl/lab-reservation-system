@@ -2,6 +2,7 @@ package org.example.labreservationsystem.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.labreservationsystem.dox.Appointment;
+import org.example.labreservationsystem.dto.Appointment1DTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -67,5 +68,12 @@ public class AppointmentRepositoryTest {
         List<Appointment> byTeacherAndSemester = appointmentRepository.findByTeacherAndSemester("8" +
                 "", "24-1");
         log.debug("{}",byTeacherAndSemester.toString());
+    }
+    @Test
+    void findCourseByTeacherId() {
+        List<Appointment1DTO> appointment1s = appointmentRepository.findCourseByTeacherIdAndSemester("24-1", "8");
+        for (Appointment1DTO appointment1 : appointment1s) {
+            log.debug("{}", appointment1);
+        }
     }
 }

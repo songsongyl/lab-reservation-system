@@ -111,4 +111,10 @@ public class UserController {
         userService.deleteAppointment(appointment);
         return ResultVO.ok();
     }
+    //基于老师id,课程id查询对应的预约信息
+    @GetMapping("appointments/{tid}/{cid}")
+    public ResultVO getAppointmentsByTIdAndCId(@PathVariable String tid, @PathVariable String cid) {
+        userService.findAppointmentsByCIdAndTId(cid,tid);
+        return ResultVO.ok();
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.labreservationsystem.repository;
 
 import org.example.labreservationsystem.dox.Course;
+import org.example.labreservationsystem.dox.User;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
@@ -41,4 +42,5 @@ WHERE c.teacher_id = :teacherId
 select * from course c where semester = :semester and teacher_id =:tId;
 """)
     List<Course> findCoursesBySemester(String tId,String semester);
+
 }

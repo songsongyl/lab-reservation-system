@@ -22,6 +22,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private ULID ulid;
 
@@ -51,11 +52,5 @@ class UserRepositoryTest {
         log.debug("{}", userRepository.count());
     }
 
-    @Test
-    void findCourseByTeacherId() {
-        List<Appointment1DTO> appointment1s = userRepository.findCourseByTeacherIdAndSemester("24-1", "8");
-        for (Appointment1DTO appointment1 : appointment1s) {
-            log.debug("{}", appointment1);
-        }
-    }
+
 }
