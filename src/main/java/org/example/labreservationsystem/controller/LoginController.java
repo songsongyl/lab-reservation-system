@@ -29,7 +29,9 @@ public class LoginController {
         User userR = userService.getUserByAccount(user.getAccount());
         log.debug("{}",userR);
         if(userR == null || !passwordEncoder.matches(user.getPassword(), userR.getPassword())) {
-            log.debug("{}",userR);
+            log.debug("{}",userR.getPassword());
+            log.debug("{}",user.getPassword());
+            log.debug("{}",passwordEncoder.matches(user.getPassword(), userR.getPassword()));
             return ResultVO.error(Code.LOGIN_ERROR);
         }
         String token = jwtComponent.encode(Map.of("uid", userR.getId(),"role",userR.getRole()));

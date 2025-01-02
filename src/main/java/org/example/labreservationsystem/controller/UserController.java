@@ -41,10 +41,17 @@ public class UserController {
     public ResultVO getCourses(@PathVariable String semester ,@RequestAttribute("uid") String teacherId) {
         return ResultVO.success(userService.getCourses(semester,teacherId));
     }
+
     //获取老师的全部课程信息
     @GetMapping("courses")
     public ResultVO getCoursesInfo(@RequestAttribute("uid") String teacherId) {
         return ResultVO.success(userService.findCoursesByTeacherId(teacherId));
+    }
+
+    //获取老师在该学期的全部课程信息
+    @GetMapping("courses/{semester}")
+    public ResultVO getCoursesBySemester(@RequestAttribute("uid") String teacherId,@PathVariable String semester) {
+        return ResultVO.success(userService.findCoursesByTeacherIdAndSemester(teacherId,semester));
     }
     //添加课程
     @PostMapping("course")

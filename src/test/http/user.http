@@ -7,12 +7,12 @@ GET localhost:8080/api/users/labs
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1NzI5NjUwLCJleHAiOjE3MzU4MTYwNTB9.BkDvvbNNipXIpWC6liAqZzTVcvaYK_g-vHT82gagtEg
 
 ### success 修改密码
-PUT localhost:8080/api/users/password
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Iiwicm9sZSI6Indld2UiLCJpYXQiOjE3MzU3MzI0MTEsImV4cCI6MTczNTgxODgxMX0.2KciBL2GgFabge_-plhudlvwlkHt1N4YKyzYmzL5A-I
+PATCH localhost:8080/api/users/password
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1Iiwicm9sZSI6Indld2UiLCJpYXQiOjE3MzU4MjA2NTMsImV4cCI6MTczNTkwNzA1M30.-uYH7IQiDnPuKts33Yrto6IKJ_RPTojPhdplClfJo6w
 Content-Type: application/json
 
 {
-  "password": "account"
+  "password": "123456"
 }
 
 ### success 查询指定老师指定学期的课表
@@ -21,8 +21,7 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Iiwicm9sZSI6Indld2UiLCJp
 
 ### success 获取老师的全部课程信息
 GET http://localhost:8080/api/users/courses
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzA3OTAsImV4cCI6MTczNTgxNzE5MH0.OUJbzD2EYuz4jLHt0ibPwCdxkb_IOYAvNMdqNWxYHz8
-
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjUiLCJpYXQiOjE3MzU4MjU2ODcsImV4cCI6MTczNTkxMjA4N30.YMGkpOKeDjrkDabdk4nLR_cqnGlRBAVg74dMI6qYQw0
 ### success 更新课程
 PATCH http://localhost:8080/api/users/course
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
@@ -102,9 +101,8 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJp
 
 
 ### 删除指定老师指定id对应的课程,要判断是否有预约记录
-DELETE localhost:8080/api/users/courses/course/3
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo
-
+DELETE localhost:8080/api/users/courses/course/01JGKASTA7QXF8JE3GZ67HM3YQ
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjgiLCJpYXQiOjE3MzU4MjU5MDEsImV4cCI6MTczNTkxMjMwMX0.hFrmKg47o6rDnqfnV9LfUhHeitliKrKwX38Y3LLSVBQ
 ### 删除指定老师指定ids对应的课程,要判断是否有预约记录
 DELETE localhost:8080/api/users/courses/3,5
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU3MzAzMTMsImV4cCI6MTczNTgxNjcxM30.NJuZjYLzB7janbuV-rY_H-74CnC7BaSqWnINTSaNOVo

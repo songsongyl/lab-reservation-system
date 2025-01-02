@@ -1,5 +1,6 @@
 package org.example.labreservationsystem.repository;
 
+
 import org.example.labreservationsystem.dox.User;
 
 import org.example.labreservationsystem.dto.Appointment1DTO;
@@ -36,4 +37,6 @@ select * from course c where teacher_id =:id;
 select * from user u where id = :id;
 """)
     User findByUserId(String id);
+
+
 }

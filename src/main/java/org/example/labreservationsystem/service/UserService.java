@@ -61,6 +61,17 @@ public class UserService {
         }
         return courseRepository.findCoursesByTeacherId(id);
     }
+
+    //基于老师id获取该学期的全部课程信息
+    @Transactional
+    public List<Course> findCoursesByTeacherIdAndSemester(String id, String semester) {
+        User u  = userRepository.findByUserId(id);
+        if(u == null) {
+            throw XException.builder().number(Code.ERROR).message("老师不存在").build();
+        }
+        return courseRepository.findCoursesBySemester(id,semester);
+    }
+
     //添加课程
     @Transactional
     public void addCourse(Course course ) {
@@ -213,8 +224,8 @@ public class UserService {
     //指定用户改密码
     @Transactional
     public void updateUserPassword(String uid, String password) {
-//        log.debug(uid);
-//        log.debug(password);
+        log.debug(uid);
+        log.debug(password);
         User user = userRepository.findByUserId(uid);
         if(user == null) {
             throw  XException.builder().number(Code.ERROR).message("用户不存在").build();

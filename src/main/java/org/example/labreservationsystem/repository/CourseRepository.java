@@ -36,4 +36,9 @@ WHERE c.teacher_id = :teacherId
   AND c.id IN (:courseIds);
 """)
     void deleteCoursesByTeacherIdAndCourseIds(String teacherId,List<String> courseIds);
+
+    @Query("""
+select * from course c where semester = :semester and teacher_id =:tId;
+""")
+    List<Course> findCoursesBySemester(String tId,String semester);
 }
