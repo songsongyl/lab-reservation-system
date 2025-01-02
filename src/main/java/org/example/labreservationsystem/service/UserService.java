@@ -164,7 +164,6 @@ public class UserService {
             course1.setType(course.getType());
             course1.setSemester(course.getSemester());
             course1.setExperimentHour(course.getExperimentHour());
-
         }
         courseRepository.save(course1);
     }
