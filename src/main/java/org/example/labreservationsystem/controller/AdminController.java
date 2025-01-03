@@ -27,11 +27,27 @@ public class AdminController {
         adminService.addUser(user);
         return ResultVO.ok();
     }
+    //添加用户
+    @PostMapping("user3")
+    public ResultVO addSingleUser(@RequestBody User user) {
+        adminService.addSingleUser(user);
+        return ResultVO.success(user);
+    }
     //基于账号重置密码
     @PutMapping("users/{account}/password")
     public ResultVO putPassword(@PathVariable String account) {
         adminService.updateUserPassword(account);
         return ResultVO.ok();
+    }
+    //将用户密码重置为其账号
+//users页面中为users列表，点开某个项通过弹窗查看具体信息，因此更改具体信息直接在users页面更改
+    @PatchMapping("user2")
+    public ResultVO resetPassword(@RequestBody User user) {
+        if (user.getId() != null && user.getAccount() != null){
+            adminService.changePassword(user.getId(),user.getAccount());
+            return ResultVO.success("修改成功");
+        }
+        return ResultVO.error(500,"传值为空");
     }
     //添加实验室
     @PostMapping("lab")

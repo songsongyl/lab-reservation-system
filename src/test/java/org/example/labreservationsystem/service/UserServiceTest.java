@@ -2,9 +2,11 @@ package org.example.labreservationsystem.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.labreservationsystem.dox.Appointment;
+import org.example.labreservationsystem.dox.Course;
 import org.example.labreservationsystem.dox.Lab;
 import org.example.labreservationsystem.dox.User;
 import org.example.labreservationsystem.dto.Appointment1DTO;
+import org.example.labreservationsystem.dto.NewsDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,10 +34,14 @@ class UserServiceTest {
 
     @Test
     void findAllNews() {
+        List<NewsDTO> allNews = userService.findAllNews();
+        log.debug("{}",allNews);
     }
 
     @Test
     void findAllLabs() {
+        userService.findAllLabs();
+        log.debug("{}",userService.findAllLabs());
     }
 
     @Test
@@ -49,14 +55,18 @@ class UserServiceTest {
 
     @Test
     void findCoursesByTeacherId() {
+        List<Course> coursesByTeacherId = userService.findCoursesByTeacherId("8");
+        log.debug("{}",coursesByTeacherId.toString());
     }
 
     @Test
     void addCourse() {
+
     }
 
     @Test
     void deleteCourseById() {
+        userService.deleteCourseById("01JFJAFCQPJ4V5621NHTVSYWME","01JGGSN1CVW3Z8GG3ZDEE5C03Q");
     }
 
     @Test
@@ -68,6 +78,8 @@ class UserServiceTest {
 
     @Test
     void deleteAllCoursesByTeacherId() {
+        userService.deleteAllCoursesByTeacherId("8");
+
     }
 
     @Test
@@ -92,9 +104,11 @@ class UserServiceTest {
 
         }
     }
-
+    //基于实验室id，查预约表
     @Test
     void getAppointment() {
+        List<Appointment> appointment = userService.getAppointment("901");
+        log.debug("{}",appointment.toString());
     }
 
     @Test
@@ -115,12 +129,20 @@ class UserServiceTest {
     }
 
     @Test
-    void deleteAppointment() {
+    void deleteAppointmentByTIdAndCId() {
+        Appointment a = Appointment.builder().id("8").teacher("8").build();
+        userService.deleteAppointmentByTIdAndCId(a);
     }
 
     @Test
     void updateUserPassword() {
         String account = "2022222908";
         userService.updateUserPassword("3",account);
+    }
+
+    @Test
+    void getAppointmentsByTIdAndCId(){
+        List<Appointment> appointmentsByCIdAndTId = userService.findAppointmentsByCIdAndTId("1", "1");
+        log.debug("{}",appointmentsByCIdAndTId.toString());
     }
 }

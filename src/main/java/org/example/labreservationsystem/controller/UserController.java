@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
     @Operation(summary = "查看所有公告")
     @GetMapping("news")
     public ResultVO findAllNews() {
@@ -31,8 +32,8 @@ public class UserController {
     }
     //修改自己的密码
     @PatchMapping("password")
-    public ResultVO updatePassword(@RequestBody String password, @RequestAttribute("uid") String uid) {
-        userService.updateUserPassword(uid, password);
+    public ResultVO updatePassword(@RequestBody User user, @RequestAttribute("uid") String uid) {
+        userService.updateUserPassword(uid, user.getPassword());
         return ResultVO.ok();
     }
 
@@ -53,6 +54,13 @@ public class UserController {
     public ResultVO getCoursesBySemester(@RequestAttribute("uid") String teacherId,@PathVariable String semester) {
         return ResultVO.success(userService.findCoursesByTeacherIdAndSemester(teacherId,semester));
     }
+
+    //获取老师在该学期的某门课程信息
+    @GetMapping("courses/{semester}/{cid}")
+    public ResultVO getCourseBySemester(@RequestAttribute("uid") String teacherId,@PathVariable String semester,@PathVariable String cid) {
+        return ResultVO.success(userService.findCoursesByTeacherIdAndSemesterAndCId(teacherId,semester,cid));
+    }
+
     //添加课程
     @PostMapping("course")
     public ResultVO addCourse(@RequestBody Course course) {
@@ -108,7 +116,7 @@ public class UserController {
     //基于老师id,课程id移除对应的预约信息
     @DeleteMapping("appointment")
     public ResultVO deleteAppointment(@RequestBody Appointment appointment) {
-        userService.deleteAppointment(appointment);
+        userService.deleteAppointmentByTIdAndCId(appointment);
         return ResultVO.ok();
     }
     //基于老师id,课程id查询对应的预约信息

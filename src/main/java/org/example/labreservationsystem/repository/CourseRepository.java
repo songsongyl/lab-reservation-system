@@ -37,9 +37,15 @@ WHERE c.teacher_id = :teacherId
   AND c.id IN (:courseIds);
 """)
     void deleteCoursesByTeacherIdAndCourseIds(String teacherId,List<String> courseIds);
-
+    //获取老师在该学期的某门课程信息
     @Query("""
-select * from course c where semester = :semester and teacher_id =:tId;
+select * from course c where semester = :semester and teacher_id =:tId and id = :cid;
+""")
+    List<Course> findCoursesBySemesterAndCId(String tId,String semester,String cid);
+
+    //获取老师在该学期的全部课程信息
+    @Query("""
+select * from course c where semester = :semester and teacher_id =:tId ;
 """)
     List<Course> findCoursesBySemester(String tId,String semester);
 

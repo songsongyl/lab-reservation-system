@@ -8,12 +8,10 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZK
 
 ### success 修改密码
 PATCH localhost:8080/api/users/password
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1Iiwicm9sZSI6Indld2UiLCJpYXQiOjE3MzU4MjA2NTMsImV4cCI6MTczNTkwNzA1M30.-uYH7IQiDnPuKts33Yrto6IKJ_RPTojPhdplClfJo6w
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoid2V3ZSIsInVpZCI6IjAxSkZKQUZDUVBKNFY1NjIxTkhUVlNZV01FIiwiaWF0IjoxNzM1ODg1ODcwLCJleHAiOjE3MzU5NzIyNzB9.2HeqLIj68TVwsM_4Zh9P3wBS2VXAUve5UOlH2l5vBJQ
 Content-Type: application/json
 
-{
-  "password": "123456"
-}
+123456
 
 ### success 查询指定老师指定学期的课表
 GET localhost:8080/api/users/coursetable/24-1

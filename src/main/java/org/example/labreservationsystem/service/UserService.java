@@ -71,6 +71,17 @@ public class UserService {
         }
         return courseRepository.findCoursesBySemester(id,semester);
     }
+    //基于老师id获取该学期的某门课程信息
+    @Transactional
+    public List<Course> findCoursesByTeacherIdAndSemesterAndCId(String id, String semester,String cid) {
+        User u  = userRepository.findByUserId(id);
+        if(u == null) {
+            throw XException.builder().number(Code.ERROR).message("老师不存在").build();
+        }
+        return courseRepository.findCoursesBySemesterAndCId(id,semester,cid);
+    }
+
+
 
     //添加课程
     @Transactional
@@ -82,8 +93,11 @@ public class UserService {
     public void deleteCourseById(String teacherId, String courseId) {
         User u = userRepository.findByUserId(teacherId);
         Course c = courseRepository.findById(courseId).orElse(null);
-        if(u == null || c == null) {
-            throw new XException().builder().number(Code.ERROR).message("老师或课程不存在").build();
+        if(u == null ) {
+            throw new XException().builder().number(Code.ERROR).message("老师不存在").build();
+        }
+        if(c == null){
+            throw new XException().builder().number(Code.ERROR).message("课程不存在").build();
         }
         int count = courseRepository.findCountByTeacherIdAndCourseId(teacherId,courseId);
         if(count>0) {
@@ -212,7 +226,7 @@ public class UserService {
 
     //基于老师id,课程id移除对应的预约信息
     @Transactional
-    public void deleteAppointment(Appointment appointment) {
+    public void deleteAppointmentByTIdAndCId(Appointment appointment) {
         Appointment a = appointmentRepository.findById(appointment.getId()).orElse(null);
         if(a == null) {
             throw new XException().builder().number(Code.ERROR).message("预约记录不存在").build();

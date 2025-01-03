@@ -3,6 +3,7 @@ package org.example.labreservationsystem.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.labreservationsystem.dox.News;
+import org.example.labreservationsystem.dox.User;
 import org.example.labreservationsystem.exception.Code;
 import org.example.labreservationsystem.exception.XException;
 import org.example.labreservationsystem.repository.*;
@@ -25,7 +26,7 @@ public class LabAdminService {
     private final PasswordEncoder passwordEncoder;
     @Transactional
     public  void addNews(String role, News news) {
-        if(!role.equals("sqWf")) {
+        if(!role.equals(User.LABADMIN)) {
             throw XException.builder()
                     .code(Code.FORBIDDEN)
                     .number(Code.FORBIDDEN.getCode())
@@ -41,7 +42,7 @@ public class LabAdminService {
         if(n == null) {
             throw XException.builder().number(Code.ERROR).message("公告不存在").build();
         }
-        if(!role.equals("sqWf")) {
+        if(!role.equals(User.LABADMIN)) {
             throw XException.builder()
                     .code(Code.FORBIDDEN)
                     .number(Code.FORBIDDEN.getCode())
@@ -58,7 +59,7 @@ public class LabAdminService {
             throw XException.builder().number(Code.ERROR).message("公告不存在").build();
 
         }
-        if(!role.equals("sqWf")) {
+        if(!role.equals(User.LABADMIN)) {
             throw XException.builder()
                     .code(Code.FORBIDDEN)
                     .number(Code.FORBIDDEN.getCode())

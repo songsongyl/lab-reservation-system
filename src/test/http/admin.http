@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "account": "admin",
-  "password": "admin"
+  "password": "123456"
 }
 
 ### success
@@ -14,11 +14,14 @@ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZN
 ### success 获取全部用户
 GET localhost:8080/api/admin/users
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
+### success 基于账号重置密码
+PUT localhost:8080/api/admin/users/2022222998/password
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1ODc2Mzg3LCJleHAiOjE3MzU5NjI3ODd9.xUMmvV_61seMCTJHi6qsTayNqNby2IhVfT0NH7cfIs0
 
 
 ### success 基于账号重置密码
-PUT localhost:8080/api/admin/users/admin/password
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjIiLCJpYXQiOjE3MzU4MjM3NjAsImV4cCI6MTczNTkxMDE2MH0.k1-bgQJiVekj4swwRr5xCOe8kKpsd2pXaYfTKLC3n08
+PUT localhost:8080/api/admin/users/20222328/password
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1ODc2Mzg3LCJleHAiOjE3MzU5NjI3ODd9.xUMmvV_61seMCTJHi6qsTayNqNby2IhVfT0NH7cfIs0
 ### success 添加实验室
 POST localhost:8080/api/admin/lab
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
@@ -33,13 +36,13 @@ Content-Type: application/json
 }
 ### success 添加用户
 POST localhost:8080/api/admin/user
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1NzE0NzYwLCJleHAiOjE3MzU4MDExNjB9.B6JQrKN4mLHpAEDT6YPzqbPHEqtYvLl7dC3s4voiyZA
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3FXZiIsInVpZCI6IjAxSkZNTjBOQkNYVDVGVkQ5WDk5Mk5WODdUIiwiaWF0IjoxNzM1ODc3MTA5LCJleHAiOjE3MzU5NjM1MDl9.FsId3ra8Z0UqW1yUh7v2fopQgcWiQ25-RrZbByqH8lY
 Content-Type: application/json
 
 {
-  "account": "11",
-  "password": "22",
-  "name": "33",
-  "role": "sqWf",
-  "telephone": "12"
+  "password": "12",
+  "telephone": "34",
+  "name": "sy",
+  "role": "wewe",
+  "account": "20222328"
 }

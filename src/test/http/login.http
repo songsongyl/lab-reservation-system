@@ -5,6 +5,23 @@ Content-Type: application/json
   "account": "account04",
   "password": "123456"
 }
+### success 传的是字符串 双引号也被编码进来 所以要用转义符
+POST localhost:8080/api/login
+Content-Type: application/json
+
+{
+"account": "1234",
+"password": "\"123456\""
+}
+
+### success 传的是字符串 没带双引号
+POST localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "account": "1234",
+  "password": "123456"
+}
 
 ### admin
 POST localhost:8080/api/login
@@ -20,6 +37,6 @@ POST localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "account": "account05",
-  "password": "123456"
+  "account": "2022222998",
+  "password": "2022222998"
 }

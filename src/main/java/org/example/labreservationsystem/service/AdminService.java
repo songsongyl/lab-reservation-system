@@ -32,10 +32,7 @@ public class AdminService {
         log.debug(AdminRepository.countLabByState().toString());
         return AdminRepository.countLabByState();
     }
-//    @Transactional
-//    public void addSingleUser(User user) {
-//        userRepository.save(user);
-//    }
+
 
     @Transactional
     public List<LabCountByDayofweekDTO> countLabByDayofweek() {
@@ -48,6 +45,14 @@ public class AdminService {
         user.setPassword(passwordEncoder.encode(user.getAccount()));
         userRepository.save(user);
     }
+    //管理员添加用户
+    @Transactional
+    public void addSingleUser(User user) {
+        String encodePassword =  passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
+        userRepository.save(user);
+    }
+
 
     @Transactional
     public Map<String, List<?>> getLabState() {
@@ -79,10 +84,14 @@ public class AdminService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void changePassword(String id, String account) {
+        AdminRepository.updatePasswordByUserId(id,account);
+    }
     //添加实验室
     @Transactional
     public void addLab(String role,Lab lab) {
-        if(!role.equals("sqWf")) {
+        if(!role.equals(User.ADMIN)) {
             throw XException.builder()
                     .code(Code.FORBIDDEN)
                     .number(Code.FORBIDDEN.getCode())
@@ -93,7 +102,8 @@ public class AdminService {
     }
     //查询指定实验室管理员的所有实验室
     @Transactional
-    public void findLabsByLabAdminId(String id){
-        labRepository.findLabs(id);
+    public List<Lab> findLabsByLabAdminId(String id){
+        List<Lab> labs = labRepository.findLabs(id);
+        return labs;
     }
 }
